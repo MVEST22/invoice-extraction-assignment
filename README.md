@@ -9,17 +9,22 @@ A P-Card-style web application for comparing four invoice-extraction methods aga
 3. **Method 3 — More expensive LLM**: `methods/method3_expensive.py` uses `gpt-6.1-sol` by default.
 4. **Method 4 — Refined**: `methods/method4_refined.py` adjudicates the first three outputs against the original invoice text, focusing on the errors found during evaluation.
 
-Each method writes a CSV to `outputs/`. `evaluation/compare_results.py` compares available outputs with the ground truth and creates detailed and summary results. The Express dashboard reads a SQLite database produced by `scripts/build_db.py`.
+The model choices and standard API rates were verified against OpenAI's current API documentation on 31 October 2026.
 
 ## Source data
 
-The provided source files are stored as `data/pdf.zip` and `data/ground_truth.zip`. The PDFs are the extraction inputs; the JSON files are used only after extraction for evaluation. Extract them with:
+The assignment provides two source archives:
+
+- `pdf.zip` → the 50 invoice PDFs used as extraction input.
+- `ground_truth.zip` → the 50 JSON ground-truth records used **only for evaluation after extraction**.
+
+The GitHub connector used to build this repository can write text/code files but cannot transfer the binary source archives from the working environment. Place the two supplied ZIP files in a local `data/` folder and run:
 
 ```bash
 python scripts/setup_data.py
 ```
 
-The extraction methods never receive the ground-truth JSON as model input.
+This creates `invoices/` and `ground_truth/`. The extraction methods never receive ground-truth JSON as model input.
 
 ## Setup
 
@@ -53,6 +58,8 @@ python methods/method3_expensive.py
 python methods/method4_refined.py
 ```
 
+Each method writes its required CSV to `outputs/`.
+
 Then evaluate and rebuild the dashboard database:
 
 ```bash
@@ -69,8 +76,8 @@ npm start
 
 Open `http://localhost:3000`.
 
-This app uses an Express backend and SQLite, so **GitHub Pages alone cannot run the full application**. GitHub is used for source control; a Node-capable host is needed if you want the live dashboard online.
+The dashboard uses an Express backend and SQLite, so GitHub Pages alone cannot run the full application. GitHub is used for source control; a Node-capable host is needed for a live deployment.
 
 ## Current status
 
-Method 1 has been run on all 50 invoices and evaluated: **64.3% field-level accuracy**. Methods 2–4 require an OpenAI API key because their outputs and token costs must represent real API calls rather than fabricated results.
+Method 1 has been run locally on all 50 invoices and evaluated at **64.3% field-level accuracy (1,509 / 2,346 fields correct)**. Its most frequent errors are line-item VAT rates, unit prices/amounts, multiline descriptions/quantities, discounts, VAT amounts, and vendor postal codes. Methods 2–4 still require an actual `OPENAI_API_KEY` so the submitted CSVs and token-cost figures come from genuine API calls rather than fabricated results.
