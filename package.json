@@ -1,0 +1,16 @@
+{
+  "name": "invoice-extraction-comparison",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI in Accounting invoice extraction comparison dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build-db": "python scripts/build_db.py",
+    "evaluate": "python evaluation/compare_results.py"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.7.0",
+    "express": "^4.21.2"
+  }
+}
