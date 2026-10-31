@@ -1,0 +1,2 @@
+method,invoices,exact_invoices,field_correct,field_total,field_accuracy,top_error_fields
+method1,50,0,1509,2346,0.6432225063938619,"[[""line_items[].vat_rate"", 147], [""line_items[].unit_price"", 93], [""line_items[].amount"", 93], [""line_items[].description"", 62], [""line_items[].quantity"", 62], [""discount_amount"", 48], [""vat_amount"", 37], [""vendor_address.postal_code"", 31]]"
