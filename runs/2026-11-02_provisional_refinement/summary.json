@@ -1,0 +1,178 @@
+[
+  {
+    "method": "method1",
+    "invoices": 50,
+    "exact_invoices": 0,
+    "field_correct": 1496,
+    "field_total": 2346,
+    "field_accuracy": 0.6376811594202898,
+    "printed_field_accuracy": 0.6415174765558397,
+    "prediction_rows": 50,
+    "top_error_fields": [
+      [
+        "line_items[].vat_rate",
+        147
+      ],
+      [
+        "line_items[].unit_price",
+        93
+      ],
+      [
+        "line_items[].amount",
+        93
+      ],
+      [
+        "line_items[].description",
+        62
+      ],
+      [
+        "line_items[].quantity",
+        62
+      ],
+      [
+        "discount_amount",
+        48
+      ],
+      [
+        "vat_amount",
+        37
+      ],
+      [
+        "vendor_address.postal_code",
+        31
+      ]
+    ]
+  },
+  {
+    "method": "method2",
+    "invoices": 50,
+    "exact_invoices": 0,
+    "field_correct": 1917,
+    "field_total": 2346,
+    "field_accuracy": 0.8171355498721228,
+    "printed_field_accuracy": 0.8239556692242114,
+    "prediction_rows": 50,
+    "top_error_fields": [
+      [
+        "line_items[].vat_rate",
+        80
+      ],
+      [
+        "line_items[].unit_price",
+        63
+      ],
+      [
+        "line_items[].amount",
+        55
+      ],
+      [
+        "discount_amount",
+        48
+      ],
+      [
+        "discount.value",
+        24
+      ],
+      [
+        "vat_rate",
+        19
+      ],
+      [
+        "discount.description",
+        18
+      ],
+      [
+        "subtotal",
+        18
+      ]
+    ]
+  },
+  {
+    "method": "method3",
+    "invoices": 50,
+    "exact_invoices": 0,
+    "field_correct": 260,
+    "field_total": 2346,
+    "field_accuracy": 0.11082693947144075,
+    "printed_field_accuracy": 0.11167945439045183,
+    "prediction_rows": 6,
+    "top_error_fields": [
+      [
+        "line_items[].vat_rate",
+        204
+      ],
+      [
+        "line_items[].unit_price",
+        184
+      ],
+      [
+        "line_items[].amount",
+        184
+      ],
+      [
+        "line_items[].description",
+        182
+      ],
+      [
+        "line_items[].quantity",
+        182
+      ],
+      [
+        "total",
+        46
+      ],
+      [
+        "discount_amount",
+        46
+      ],
+      [
+        "subtotal",
+        45
+      ]
+    ]
+  },
+  {
+    "method": "method4",
+    "invoices": 50,
+    "exact_invoices": 5,
+    "field_correct": 2002,
+    "field_total": 2346,
+    "field_accuracy": 0.8533674339300937,
+    "printed_field_accuracy": 0.8610400682011935,
+    "prediction_rows": 50,
+    "top_error_fields": [
+      [
+        "line_items[].vat_rate",
+        79
+      ],
+      [
+        "line_items[].unit_price",
+        51
+      ],
+      [
+        "line_items[].amount",
+        51
+      ],
+      [
+        "discount_amount",
+        30
+      ],
+      [
+        "vat_rate",
+        20
+      ],
+      [
+        "subtotal",
+        20
+      ],
+      [
+        "vat_amount",
+        13
+      ],
+      [
+        "total",
+        11
+      ]
+    ]
+  }
+]

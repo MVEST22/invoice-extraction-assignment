@@ -1,0 +1,553 @@
+[
+  {
+    "source_file": "INV-2026-0001.pdf",
+    "base_candidate_method": 3,
+    "changed_fields": [
+      "discount",
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0002.pdf",
+    "base_candidate_method": 3,
+    "changed_fields": [
+      "discount"
+    ],
+    "review_flags": [
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0003.pdf",
+    "base_candidate_method": 3,
+    "changed_fields": [
+      "line_items",
+      "subtotal",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices).",
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0004.pdf",
+    "base_candidate_method": 3,
+    "changed_fields": [
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0005.pdf",
+    "base_candidate_method": 3,
+    "changed_fields": [
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0006.pdf",
+    "base_candidate_method": 3,
+    "changed_fields": [
+      "discount",
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices)."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0007.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "discount_amount",
+      "line_items"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0008.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "subtotal",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices).",
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0009.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "recipient_address",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0010.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "discount_amount",
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0011.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount_amount",
+      "line_items",
+      "recipient",
+      "vat_rate",
+      "vendor_address"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices).",
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0012.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "bank_details",
+      "discount_amount",
+      "recipient",
+      "recipient_address",
+      "vendor"
+    ],
+    "review_flags": [
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0013.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "recipient_address",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices)."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0014.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "bank_details",
+      "line_items",
+      "recipient",
+      "recipient_address",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0015.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "vendor_address"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices)."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0016.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0017.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0018.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices)."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0019.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0020.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0021.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices).",
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0022.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "discount_amount",
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0023.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "recipient_address",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0024.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "discount_amount",
+      "line_items",
+      "recipient_address",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices).",
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0025.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0026.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "discount_amount",
+      "line_items",
+      "vat_rate",
+      "vendor_address"
+    ],
+    "review_flags": [
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0027.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "discount_amount"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0028.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0029.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "recipient_address",
+      "vendor_address"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0030.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "bank_details",
+      "discount",
+      "discount_amount",
+      "line_items",
+      "recipient_address",
+      "subtotal",
+      "vat_rate",
+      "vendor_address"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices).",
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0031.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "line_items",
+      "subtotal",
+      "total"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0032.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "bank_details",
+      "line_items",
+      "subtotal",
+      "total"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices)."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0033.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "recipient",
+      "recipient_address",
+      "subtotal",
+      "total",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0034.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "recipient_address",
+      "subtotal",
+      "total"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0035.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "recipient",
+      "subtotal",
+      "total",
+      "vat_amount",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices).",
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0036.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0037.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0038.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "discount_amount",
+      "recipient",
+      "vendor_address"
+    ],
+    "review_flags": [
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0039.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0040.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "recipient",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0041.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "recipient_address",
+      "vat_rate",
+      "vendor_address"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices)."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0042.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "discount_amount",
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices)."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0043.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "vat_rate",
+      "vendor_address"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0044.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "discount_amount",
+      "vat_rate"
+    ],
+    "review_flags": [
+      "Mixed VAT: item-level rates require review when not printed.",
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices).",
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0045.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "bank_details",
+      "vendor",
+      "vendor_address"
+    ],
+    "review_flags": [
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0046.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0047.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "recipient_address"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices).",
+      "Printed total does not reconcile: preserve printed value and review."
+    ]
+  },
+  {
+    "source_file": "INV-2026-0048.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount_amount",
+      "line_items",
+      "vat_rate"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0049.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "discount",
+      "discount_amount"
+    ],
+    "review_flags": []
+  },
+  {
+    "source_file": "INV-2026-0050.pdf",
+    "base_candidate_method": 2,
+    "changed_fields": [
+      "line_items",
+      "recipient_address"
+    ],
+    "review_flags": [
+      "Printed subtotal differs from sum of extracted line amounts (possibly VAT-inclusive prices)."
+    ]
+  }
+]

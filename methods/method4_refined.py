@@ -4,6 +4,7 @@ Printed values are preserved. Reconciliations are separate review flags, not rep
 """
 from __future__ import annotations
 import copy,csv,json,re
+from pathlib import Path
 from decimal import Decimal,InvalidOperation
 from common import INVOICE_DIR,OUTPUT_DIR,ROOT,pdf_text,write_csv,unflatten,compact,normalize_number
 from method1_programmatic import iso_date,COUNTRY_MAP
@@ -121,7 +122,7 @@ def main():
     records=[];log=[]
     for pdf in sorted(INVOICE_DIR.glob('*.pdf')):
         rec,checks=refine(pdf_text(pdf),[m.get(pdf.stem,{}) for m in maps]);rec['source_file']=pdf.name
-        records.append(rec);log.append({'source_file':pdf.name}|checks)
+        records.append(rec);log.append({'source_file':pdf.name,'base_candidate_method':next((i+1 for i in [2,1,0] if maps[i].get(pdf.stem)),None)}|checks)
     write_csv(records,OUTPUT_DIR/'method4_refined.csv')
     (OUTPUT_DIR/'method4_refinement_log.json').write_text(json.dumps(log,ensure_ascii=False,indent=2))
     print('Refined',len(records),'invoices; no additional LLM calls or ground-truth input.')
