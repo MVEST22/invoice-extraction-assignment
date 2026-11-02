@@ -1,6 +1,6 @@
 """Free local text LLM extraction. Ground truth is never read here."""
 from __future__ import annotations
-import gc, hashlib, json, time
+import gc, hashlib, json, time, os
 from pathlib import Path
 from common import ROOT, INVOICE_DIR, OUTPUT_DIR, pdf_text, write_csv
 
@@ -49,19 +49,23 @@ def parse_response(text):
 def run(method):
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
-    if not torch.cuda.is_available():raise RuntimeError('Use a free Colab T4 GPU. No API key or paid compute is required.')
+    use_cuda=torch.cuda.is_available() and os.getenv('INVOICE_DEVICE')!='cpu'
+    device='cuda' if use_cuda else 'cpu'
+    model_map=MODELS if use_cuda else {'method2_low_cost':'Qwen/Qwen2.5-0.5B-Instruct','method3_expensive':'Qwen/Qwen2.5-1.5B-Instruct'}
+    max_tokens=3072 if use_cuda else 2048
+    if not use_cuda:torch.set_num_threads(max(1,min(4,os.cpu_count() or 1)))
     pdfs=sorted(INVOICE_DIR.glob('*.pdf'))
     if len(pdfs)!=50:raise RuntimeError(f'Expected 50 input PDFs, found {len(pdfs)}')
-    model_id=MODELS[method];rawdir=OUTPUT_DIR/'raw'/method;rawdir.mkdir(parents=True,exist_ok=True)
+    model_id=model_map[method];rawdir=OUTPUT_DIR/'raw'/method;rawdir.mkdir(parents=True,exist_ok=True)
     (rawdir/'prompt.txt').write_text(PROMPT,encoding='utf-8')
     torch.manual_seed(0)
     tokenizer=AutoTokenizer.from_pretrained(model_id)
-    kwargs={'torch_dtype':torch.float16,'device_map':{'':'cuda:0'},'attn_implementation':'sdpa'}
-    if method=='method3_expensive':
+    kwargs={'torch_dtype':torch.float16 if use_cuda else torch.float32,'device_map':{'':device},'attn_implementation':'sdpa'}
+    if use_cuda and method=='method3_expensive':
         kwargs['quantization_config']=BitsAndBytesConfig(load_in_4bit=True,bnb_4bit_quant_type='nf4',
             bnb_4bit_compute_dtype=torch.float16,bnb_4bit_use_double_quant=True)
     model=AutoModelForCausalLM.from_pretrained(model_id,**kwargs);model.eval()
-    signature=hashlib.sha256((PROMPT+model_id+json.dumps({'max_new_tokens':3072,'seed':0,'quantized':method=='method3_expensive'})).encode()).hexdigest()
+    signature=hashlib.sha256((PROMPT+model_id+json.dumps({'max_new_tokens':max_tokens,'seed':0,'device':device,'quantized':use_cuda and method=='method3_expensive'})).encode()).hexdigest()
     records=[];usage=[]
     try:
         for index,pdf in enumerate(pdfs,1):
@@ -72,17 +76,19 @@ def run(method):
             else:
                 messages=[{'role':'system','content':PROMPT},{'role':'user','content':'SOURCE INVOICE:\n'+pdf_text(pdf)}]
                 inputs=tokenizer.apply_chat_template(messages,add_generation_prompt=True,tokenize=True,
-                    return_dict=True,return_tensors='pt').to('cuda')
-                torch.cuda.synchronize();started=time.perf_counter()
+                    return_dict=True,return_tensors='pt').to(device)
+                if use_cuda:torch.cuda.synchronize()
+                started=time.perf_counter()
                 with torch.inference_mode():
-                    output=model.generate(**inputs,max_new_tokens=3072,do_sample=False,pad_token_id=tokenizer.eos_token_id)
-                torch.cuda.synchronize();elapsed=time.perf_counter()-started
+                    output=model.generate(**inputs,max_new_tokens=max_tokens,do_sample=False,pad_token_id=tokenizer.eos_token_id)
+                if use_cuda:torch.cuda.synchronize()
+                elapsed=time.perf_counter()-started
                 generated=output[0,inputs['input_ids'].shape[-1]:]
                 response=tokenizer.decode(generated,skip_special_tokens=True)
                 saved={'invoice_id':pdf.stem,'input_sha256':digest,'model':model_id,'model_revision':getattr(model.config,'_commit_hash',None),'signature':signature,
                     'raw_response':response,'input_tokens':int(inputs['input_ids'].numel()),
                     'output_tokens':int(generated.numel()),'generation_seconds':elapsed,
-                    'hit_token_limit':int(generated.numel())>=3072,'actual_api_cost_usd':0}
+                    'device':device,'quantization':'NF4' if use_cuda and method=='method3_expensive' else 'none','hit_token_limit':int(generated.numel())>=max_tokens,'actual_api_cost_usd':0}
                 checkpoint.write_text(json.dumps(saved,ensure_ascii=False,indent=2),encoding='utf-8')
                 del inputs,output,generated
             try:
@@ -94,8 +100,9 @@ def run(method):
             usage.append({k:v for k,v in saved.items() if k!='raw_response'}|{'status':status})
             write_csv(records,OUTPUT_DIR/(method+'.csv'))
             (OUTPUT_DIR/(method+'_usage.json')).write_text(json.dumps(usage,indent=2))
-            print(f'{method}: {index}/50 {pdf.stem}: {status}',flush=True)
+            print(f'{model_id} ({device}): {index}/50 {pdf.stem}: {status}',flush=True)
     finally:
         del model,tokenizer
-        gc.collect();torch.cuda.empty_cache()
+        gc.collect()
+        if use_cuda:torch.cuda.empty_cache()
     return records

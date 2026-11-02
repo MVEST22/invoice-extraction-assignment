@@ -2,6 +2,10 @@
 
 Compare four extraction methods on the supplied 50 invoice PDFs. Ground-truth JSON is used only after extraction to evaluate results.
 
+## GPU quota reached? Use the CPU version
+
+Open [Assignment_3_CPU_Colab.ipynb](https://colab.research.google.com/github/MVEST22/invoice-extraction-assignment/blob/main/Assignment_3_CPU_Colab.ipynb) and select **CPU**, then **Run all**. It uses Qwen2.5-0.5B and Qwen2.5-1.5B in float32; no GPU, API key or payment is required. This changes the models being compared and the report records their actual names. CPU inference may take several hours; free-session limits still apply. Keep the runtime active and download results before disconnecting. This is a new, unexecuted path until actual CPU results are returned.
+
 ## Run without paid APIs
 
 Open [Assignment_3_Free_Colab.ipynb in Colab](https://colab.research.google.com/github/MVEST22/invoice-extraction-assignment/blob/main/Assignment_3_Free_Colab.ipynb), choose **Runtime > Change runtime type > T4 GPU**, then **Runtime > Run all**. No code editing, API key, or purchase is required. Free GPU availability is not guaranteed. Stop if Colab asks you to purchase compute.
