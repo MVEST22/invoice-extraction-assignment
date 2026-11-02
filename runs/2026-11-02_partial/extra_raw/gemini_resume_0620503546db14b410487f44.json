@@ -1,0 +1,52 @@
+{
+  "signature": "0620503546db14b410487f44e943fe8cb895530ef3acffc5d67c65a9a80c973d",
+  "model": "gemini-3.8-flash",
+  "returned_model_version": "gemini-3.8-flash",
+  "source_files": [
+    "INV-2026-0006.pdf"
+  ],
+  "network_attempts": 1,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0006\", \"vendor\": \"Stark Industries Europe Ltd\", \"vendor_country\": \"GB\", \"vendor_address\": {\"street\": \"25 Greywell Close\", \"postal_code\": \"EC2R 6AA\", \"city\": \"London\"}, \"recipient\": \"Benelux Windmill Automation B.V.\", \"recipient_country\": \"NL\", \"recipient_address\": {\"street\": \"Walvisgracht 421\", \"postal_code\": \"1017 BP\", \"city\": \"Amsterdam\"}, \"date\": \"2026-03-05\", \"due_date\": \"2026-03-05\", \"line_items\": [{\"description\": \"Marketing collateral refresh\", \"quantity\": 1.0, \"unit_price\": \"6404.64\", \"vat_rate\": \"0.20\", \"amount\": \"6404.64\"}, {\"description\": \"Board meeting facilitation\", \"quantity\": 5.0, \"unit_price\": \"1819.56\", \"vat_rate\": \"0.20\", \"amount\": \"9097.80\"}], \"subtotal\": \"15507.44\", \"vat_rate\": \"0.20\", \"vat_amount\": null, \"discount\": {\"type\": \"percentage\", \"value\": \"5\", \"applied_to\": \"subtotal\", \"description\": \"5% early payment discount\", \"conditional\": true}, \"discount_amount\": \"645.94\", \"total\": \"14856.50\", \"currency\": \"EUR\", \"payment_terms\": \"Due upon receipt\", \"bank_details\": \"Lloyds Bank | IBAN: GB01 1333 9804 2776 4157 74 | BIC: LOYDGB21XXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0006.pdf\"}]}",
+              "thoughtSignature": "EmkKZwFpFH0T4bRXYi2Qi45BpTwa75eVlgVxkH550ZgZnEyBnAbaIOty6QTYGvQG1X+OJLTcHijQEjji0WQL1WptQ5QUOQMryC4APLHtHxRCbILoWZH08AMiSCisJrgwZ5aTYR8QfHekFnk="
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 745,
+      "candidatesTokenCount": 468,
+      "totalTokenCount": 1213,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 745
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.8-flash",
+    "responseId": "DWnoapbULPXW-8YP4-LPyAQ"
+  },
+  "raw_response": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0006\", \"vendor\": \"Stark Industries Europe Ltd\", \"vendor_country\": \"GB\", \"vendor_address\": {\"street\": \"25 Greywell Close\", \"postal_code\": \"EC2R 6AA\", \"city\": \"London\"}, \"recipient\": \"Benelux Windmill Automation B.V.\", \"recipient_country\": \"NL\", \"recipient_address\": {\"street\": \"Walvisgracht 421\", \"postal_code\": \"1017 BP\", \"city\": \"Amsterdam\"}, \"date\": \"2026-03-05\", \"due_date\": \"2026-03-05\", \"line_items\": [{\"description\": \"Marketing collateral refresh\", \"quantity\": 1.0, \"unit_price\": \"6404.64\", \"vat_rate\": \"0.20\", \"amount\": \"6404.64\"}, {\"description\": \"Board meeting facilitation\", \"quantity\": 5.0, \"unit_price\": \"1819.56\", \"vat_rate\": \"0.20\", \"amount\": \"9097.80\"}], \"subtotal\": \"15507.44\", \"vat_rate\": \"0.20\", \"vat_amount\": null, \"discount\": {\"type\": \"percentage\", \"value\": \"5\", \"applied_to\": \"subtotal\", \"description\": \"5% early payment discount\", \"conditional\": true}, \"discount_amount\": \"645.94\", \"total\": \"14856.50\", \"currency\": \"EUR\", \"payment_terms\": \"Due upon receipt\", \"bank_details\": \"Lloyds Bank | IBAN: GB01 1333 9804 2776 4157 74 | BIC: LOYDGB21XXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0006.pdf\"}]}",
+  "finish_reason": "STOP",
+  "input_tokens": 745,
+  "output_tokens": 468,
+  "thinking_tokens": 0,
+  "request_seconds": 71.88244770900008,
+  "provider": "Gemini API",
+  "billing_basis": "User-selected Free Tier project; no billing enabled. Not independently verified by API.",
+  "standard_paid_rate_input_per_m": 0.75,
+  "standard_paid_rate_output_per_m": 3.75,
+  "pricing_checked": "2026-11-02",
+  "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing"
+}

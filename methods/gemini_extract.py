@@ -47,10 +47,10 @@ def parse_batch(response,source_files):
     if set(mapped)!=set(source_files):raise ValueError('Missing source invoice')
     return mapped
 
-def request_with_retry(key,model_id,body,sleep=time.sleep):
+def request_with_retry(key,model_id,body,sleep=time.sleep,max_attempts=5):
     """Retry transient service failures; never change model or billing tier."""
     last=None
-    for attempt in range(5):
+    for attempt in range(max_attempts):
         try:
             last=requests.post(API+'/models/'+model_id+':generateContent',
                 headers={'x-goog-api-key':key,'Content-Type':'application/json'},
@@ -61,16 +61,16 @@ def request_with_retry(key,model_id,body,sleep=time.sleep):
         limited=last is not None and last.status_code==429
         if limited and attempt>=1:return last,attempt+1
         if not transient and not limited:return last,attempt+1
-        if attempt==4:break
+        if attempt==max_attempts-1:break
         delay=30 if limited else min(5*2**attempt,40)
         status='network interruption' if last is None else 'HTTP '+str(last.status_code)
-        print(f'Temporary {status}; retrying in {delay} seconds ({attempt+1}/5). Saved batches are retained.',flush=True)
+        print(f'Temporary {status}; retrying in {delay} seconds ({attempt+1}/{max_attempts}). Saved batches are retained.',flush=True)
         sleep(delay)
     if last is None:
         raise RuntimeError('Gemini connection failed after retries. Completed batches remain saved; rerun in the same runtime to resume.') from None
-    return last,5
+    return last,max_attempts
 
-def run(key,method,model_id,batch_size=5):
+def run(key,method,model_id,batch_size=5,continue_transient=False):
     if batch_size not in {1,5}:raise ValueError("Batch size must be 1 or 5")
     if model_id not in RATES:raise ValueError('Model is not in the verified free-tier allowlist')
     pdfs=sorted(INVOICE_DIR.glob('*.pdf'))
@@ -94,11 +94,19 @@ def run(key,method,model_id,batch_size=5):
         try:mapped=parse_batch(saved['raw_response'],names)
         except (ValueError,TypeError,KeyError):continue
         if any(n in completed for n in names):continue
+        consecutive_failures=0
         completed.update(mapped)
         usage.append({k:v for k,v in saved.items() if k not in {'response','raw_response'}}|{'status':'parsed','parse_failures':0})
     persist()
     print(f'{model_id}: restored {len(completed)}/50 verified invoices.',flush=True)
     remaining=[p for p in pdfs if p.name not in completed]
+    deferred=[];consecutive_failures=0
+    def defer(names,reason):
+        nonlocal consecutive_failures
+        consecutive_failures+=1
+        deferred.append({'source_files':names,'reason':reason})
+        (rawdir/'deferred_invoices.json').write_text(json.dumps(deferred,indent=2))
+        print('Deferred '+', '.join(names)+': '+reason+'. Continuing to another invoice.',flush=True)
     for offset in range(0,len(remaining),batch_size):
         group=remaining[offset:offset+batch_size];names=[p.name for p in group]
         sources=[{'source_file':p.name,'invoice_text':pdf_text(p)} for p in group]
@@ -113,9 +121,20 @@ def run(key,method,model_id,batch_size=5):
             body={'systemInstruction':{'parts':[{'text':instruction}]},'contents':[{'role':'user','parts':[{'text':json.dumps(sources,ensure_ascii=False)}]}],
                   'generationConfig':{'maxOutputTokens':8192 if batch_size==1 else 32768,'responseMimeType':'application/json','responseJsonSchema':response_schema}}
             started=time.perf_counter()
-            r,network_attempts=request_with_retry(key,model_id,body)
+            try:
+                r,network_attempts=request_with_retry(key,model_id,body,max_attempts=2 if continue_transient else 5)
+            except RuntimeError:
+                if not continue_transient:raise
+                defer(names,'connection failed')
+                if consecutive_failures>=3:break
+                continue
             if not r.ok:
                 (rawdir/'last_http_status.json').write_text(json.dumps({'status':r.status_code,'model':model_id,'completed_batches':len(usage)}))
+                if continue_transient and r.status_code in {408,500,502,503,504}:
+                    defer(names,'HTTP '+str(r.status_code))
+                    if consecutive_failures>=3:break
+                    time.sleep(13)
+                    continue
                 raise RuntimeError(f'Gemini HTTP {r.status_code}. Free quota, model access or request configuration needs review. No paid fallback was used; completed batches remain saved. Download the partial ZIP for troubleshooting.')
             raw=r.json();candidate=(raw.get('candidates') or [{}])[0]
             text=''.join(p.get('text','') for p in candidate.get('content',{}).get('parts',[]) if not p.get('thought'))
@@ -131,10 +150,18 @@ def run(key,method,model_id,batch_size=5):
         try:
             mapped=parse_batch(saved['raw_response'],names)
         except (ValueError,TypeError,KeyError):
+            if continue_transient:
+                defer(names,'unparseable response')
+                if consecutive_failures>=3:break
+                continue
             raise RuntimeError('Response could not be parsed. Raw response saved; completed invoices retained. Rerun to retry this invoice.') from None
+        consecutive_failures=0
         completed.update(mapped)
         usage.append({k:v for k,v in saved.items() if k not in {'response','raw_response'}}|{'status':'parsed','parse_failures':0})
         persist()
         print(f'{model_id}: {len(completed)}/50 invoices; saved.',flush=True)
         if offset+batch_size<len(remaining) and not cache_hit:time.sleep(13)
+    if len(completed)<len(pdfs):
+        raise RuntimeError(f'{len(completed)}/50 saved; {len(pdfs)-len(completed)} pending. Deferred invoices are recorded. No missing results were invented.')
+    (rawdir/'deferred_invoices.json').write_text('[]')
     return [completed[p.name] for p in pdfs]
