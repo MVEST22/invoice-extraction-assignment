@@ -47,6 +47,29 @@ def parse_batch(response,source_files):
     if set(mapped)!=set(source_files):raise ValueError('Missing source invoice')
     return mapped
 
+def request_with_retry(key,model_id,body,sleep=time.sleep):
+    """Retry transient service failures; never change model or billing tier."""
+    last=None
+    for attempt in range(5):
+        try:
+            last=requests.post(API+'/models/'+model_id+':generateContent',
+                headers={'x-goog-api-key':key,'Content-Type':'application/json'},
+                json=body,timeout=240)
+        except requests.RequestException:
+            last=None
+        transient=last is None or last.status_code in {408,500,502,503,504}
+        limited=last is not None and last.status_code==429
+        if limited and attempt>=1:return last,attempt+1
+        if not transient and not limited:return last,attempt+1
+        if attempt==4:break
+        delay=30 if limited else min(5*2**attempt,40)
+        status='network interruption' if last is None else 'HTTP '+str(last.status_code)
+        print(f'Temporary {status}; retrying in {delay} seconds ({attempt+1}/5). Saved batches are retained.',flush=True)
+        sleep(delay)
+    if last is None:
+        raise RuntimeError('Gemini connection failed after retries. Completed batches remain saved; rerun in the same runtime to resume.') from None
+    return last,5
+
 def run(key,method,model_id):
     if model_id not in RATES:raise ValueError('Model is not in the verified free-tier allowlist')
     pdfs=sorted(INVOICE_DIR.glob('*.pdf'))
@@ -61,16 +84,12 @@ def run(key,method,model_id):
         signature=hashlib.sha256(json.dumps({'prompt':instruction,'model':model_id,'schema':response_schema,'sources':sources},sort_keys=True).encode()).hexdigest()
         path=rawdir/f'gemini_batch_{offset//5+1:02d}.json'
         saved=json.loads(path.read_text()) if path.exists() else None
-        if not saved or saved.get('signature')!=signature:
+        cache_hit=bool(saved and saved.get('signature')==signature)
+        if not cache_hit:
             body={'systemInstruction':{'parts':[{'text':instruction}]},'contents':[{'role':'user','parts':[{'text':json.dumps(sources,ensure_ascii=False)}]}],
                   'generationConfig':{'maxOutputTokens':32768,'responseMimeType':'application/json','responseJsonSchema':response_schema}}
             started=time.perf_counter()
-            for attempt in range(2):
-                try:r=requests.post(API+'/models/'+model_id+':generateContent',headers={'x-goog-api-key':key,'Content-Type':'application/json'},json=body,timeout=240)
-                except requests.RequestException:raise RuntimeError('Gemini request failed. Completed batches are saved; rerun in the same runtime to resume.') from None
-                if r.status_code==429 and attempt==0:
-                    print('Free quota/rate limit: waiting 30 seconds once, then retrying.',flush=True);time.sleep(30);continue
-                break
+            r,network_attempts=request_with_retry(key,model_id,body)
             if not r.ok:
                 (rawdir/'last_http_status.json').write_text(json.dumps({'status':r.status_code,'model':model_id,'completed_batches':len(usage)}))
                 raise RuntimeError(f'Gemini HTTP {r.status_code}. Free quota, model access or request configuration needs review. No paid fallback was used; completed batches remain saved. Download the partial ZIP for troubleshooting.')
@@ -78,7 +97,7 @@ def run(key,method,model_id):
             text=''.join(p.get('text','') for p in candidate.get('content',{}).get('parts',[]) if not p.get('thought'))
             counts=raw.get('usageMetadata',{})
             saved={'signature':signature,'model':model_id,'returned_model_version':raw.get('modelVersion'),
-                'source_files':names,'response':raw,'raw_response':text,'finish_reason':candidate.get('finishReason'),
+                'source_files':names,'network_attempts':network_attempts,'response':raw,'raw_response':text,'finish_reason':candidate.get('finishReason'),
                 'input_tokens':counts.get('promptTokenCount',0),'output_tokens':counts.get('candidatesTokenCount',0),
                 'thinking_tokens':counts.get('thoughtsTokenCount',0),'request_seconds':time.perf_counter()-started,
                 'provider':'Gemini API','billing_basis':'User-selected Free Tier project; no billing enabled. Not independently verified by API.',
@@ -94,5 +113,5 @@ def run(key,method,model_id):
         write_csv(records,OUTPUT_DIR/(method+'.csv'))
         (OUTPUT_DIR/(method+'_usage.json')).write_text(json.dumps(usage,indent=2))
         print(f'{model_id}: {len(records)}/50 invoices; batch {status}',flush=True)
-        if offset+5<len(pdfs) and saved.get('request_seconds') is not None:time.sleep(13)
+        if offset+5<len(pdfs) and not cache_hit:time.sleep(13)
     return records
