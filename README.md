@@ -10,7 +10,7 @@ This uses Gemini Flash-Lite for Method 2 and the higher-standard-price Gemini Fl
 
 Five source invoices are grouped in each synchronous request (not the paid asynchronous Batch API). Ten successful generation requests per model cover all 50 invoices. Raw responses and checkpoints are saved immediately. An unresolved quota/access error stops the run instead of upgrading. Runtime depends on quotas and service latency; a fixed completion time is not promised. Google free-tier data-use terms apply to the submitted source text. Ground-truth JSON is never sent to Gemini.
 
-The final cell downloads `assignment3_results.zip`; also download the executed notebook. The new hosted path is code-checked but **not yet executed with your key**. No Gemini results or costs have been invented. The report and dashboard database are rebuilt after a successful real run. Do not mix this with an earlier local-model run.
+The final cell downloads `assignment3_results.zip`; also download the executed notebook. The returned checkpoint confirms 50 genuine Flash-Lite results and five Flash results; the run is still incomplete. No Gemini results or costs have been invented. The report and dashboard database are rebuilt after a successful real run. Do not mix this with an earlier local-model run.
 
 ## GPU quota reached? Slower local CPU alternative
 
@@ -34,7 +34,7 @@ The final cell downloads `assignment3_results.zip`. Also download the executed n
 ## Current verified status
 
 - Method 1 executed on all 50 uploaded invoices: **1,496 / 2,346 fields (63.8%)** against the original ground-truth accounting values; 0 fully exact invoices.
-- Methods 2, 3 and 4 have code prepared, but **their real Colab run is still required**. No LLM CSV or scores are fabricated.
+- A returned Gemini checkpoint verifies Method 2 completed all 50 invoices: **1,917 / 2,346 fields (81.7%)**. Method 3 has only five saved invoices; Method 4 has not run. See `REPORT.md` and `runs/2026-11-02_partial/`. No missing LLM outputs or scores are fabricated.
 - The parser/refinement regression checks pass locally. GPU inference has not been tested in this workspace.
 - The old API-only methods are no longer the default. `methods/llm_extract.py` remains legacy reference code and is not invoked by the free notebook; its hosted API path has not been run.
 
@@ -58,3 +58,7 @@ For a local CUDA machine: install `requirements.txt` plus compatible PyTorch, ru
 - [Hugging Face bitsandbytes documentation](https://huggingface.co/docs/transformers/quantization/bitsandbytes).
 
 Models and model cards are external dependencies. The notebook records package versions and file hashes; model revisions are also recorded when available.
+
+## Preserved partial run
+
+The original user-returned ZIP is saved as `runs/2026-11-02_partial/checkpoint.zip`, with directly readable CSVs, usage logs and manifest beside it. All 50 source PDF hashes match the supplied input archive. Method 2's 81.7% score was independently reproduced locally. The ZIP preserves the original, outdated report template as evidence; use the repository root `REPORT.md` for the verified interim summary. The overall 9.8% shown for Method 3 by the checkpoint's evaluator includes 45 missing invoices and must not be presented as its accuracy on a completed 50-invoice run. More results and the actual executed notebook are still needed.

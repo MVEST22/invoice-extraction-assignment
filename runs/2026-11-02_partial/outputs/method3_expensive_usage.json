@@ -1,0 +1,27 @@
+[
+  {
+    "signature": "3139619fd18ba7f3505bc1227e383364fdce6e9f03b34c6cb619335f683ca722",
+    "model": "gemini-3.8-flash",
+    "returned_model_version": "gemini-3.8-flash",
+    "source_files": [
+      "INV-2026-0001.pdf",
+      "INV-2026-0002.pdf",
+      "INV-2026-0003.pdf",
+      "INV-2026-0004.pdf",
+      "INV-2026-0005.pdf"
+    ],
+    "finish_reason": "STOP",
+    "input_tokens": 2614,
+    "output_tokens": 2997,
+    "thinking_tokens": 0,
+    "request_seconds": 199.41122344299993,
+    "provider": "Gemini API",
+    "billing_basis": "User-selected Free Tier project; no billing enabled. Not independently verified by API.",
+    "standard_paid_rate_input_per_m": 0.75,
+    "standard_paid_rate_output_per_m": 3.75,
+    "pricing_checked": "2026-11-02",
+    "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing",
+    "status": "parsed",
+    "parse_failures": 0
+  }
+]
