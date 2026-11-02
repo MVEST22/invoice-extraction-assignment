@@ -2,7 +2,17 @@
 
 Compare four extraction methods on the supplied 50 invoice PDFs. Ground-truth JSON is used only after extraction to evaluate results.
 
-## GPU quota reached? Use the CPU version
+## Recommended now: Gemini in Colab, without a GPU
+
+Open [Assignment_3_Gemini_Colab.ipynb](https://colab.research.google.com/github/MVEST22/invoice-extraction-assignment/blob/main/Assignment_3_Gemini_Colab.ipynb), select **CPU**, and choose **Run all**. Enter your key from a **Free Tier Google AI Studio project with billing disabled** only in the private prompt. No local model downloads or GPU access are needed. Do not paste the key into source, chat or GitHub.
+
+This uses Gemini Flash-Lite for Method 2 and the higher-standard-price Gemini Flash for Method 3, then the same source-only hybrid refinement. It selects only documented free-tier model IDs that your key lists as available: preferred pair 3.5 Flash-Lite and 3.8 Flash, with 3.1 Flash-Lite or 3.6 Flash as allowlisted alternatives. The actual selected models and returned versions are saved. Model-list access does not verify project billing status: using your unbilled Free Tier project is essential. Standard rates checked on 2 November 2026 are recorded separately from free-tier charges. Both model tiers may use the free allowance; no paid credits need to be purchased.
+
+Five source invoices are grouped in each synchronous request (not the paid asynchronous Batch API). Ten successful generation requests per model cover all 50 invoices. Raw responses and checkpoints are saved immediately. An unresolved quota/access error stops the run instead of upgrading. Runtime depends on quotas and service latency; a fixed completion time is not promised. Google free-tier data-use terms apply to the submitted source text. Ground-truth JSON is never sent to Gemini.
+
+The final cell downloads `assignment3_results.zip`; also download the executed notebook. The new hosted path is code-checked but **not yet executed with your key**. No Gemini results or costs have been invented. The report and dashboard database are rebuilt after a successful real run. Do not mix this with an earlier local-model run.
+
+## GPU quota reached? Slower local CPU alternative
 
 Open [Assignment_3_CPU_Colab.ipynb](https://colab.research.google.com/github/MVEST22/invoice-extraction-assignment/blob/main/Assignment_3_CPU_Colab.ipynb) and select **CPU**, then **Run all**. It uses Qwen2.5-0.5B and Qwen2.5-1.5B in float32; no GPU, API key or payment is required. This changes the models being compared and the report records their actual names. CPU inference may take several hours; free-session limits still apply. Keep the runtime active and download results before disconnecting. This is a new, unexecuted path until actual CPU results are returned.
 
