@@ -30,7 +30,7 @@ def eq(path,a,b):
     if b is None and a in (None,""): return True
     if name in NUMERIC_NAMES and a not in (None,"") and b not in (None,""):
         return numeq(a,b)
-    if isinstance(a,bool) or isinstance(b,bool): return bool(a)==bool(b)
+    if isinstance(a,bool) or isinstance(b,bool): return isinstance(a,bool) and isinstance(b,bool) and a==b
     return norm_text(a)==norm_text(b)
 
 def flatten_compare(obj,prefix=""):
@@ -48,7 +48,10 @@ def flatten_compare(obj,prefix=""):
 
 def read_method(path):
     with path.open(encoding="utf-8-sig",newline="") as f:
-        return {r["invoice_id"]:unflatten(r) for r in csv.DictReader(f)}
+        rows=list(csv.DictReader(f))
+        keys=[Path(r.get("source_file") or (r["invoice_id"]+".pdf")).stem for r in rows]
+        if len(set(keys))!=len(keys):raise ValueError("Duplicate source invoices in "+str(path))
+        return {k:unflatten(r) for k,r in zip(keys,rows)}
 
 def main():
     truths={p.stem:json.loads(p.read_text(encoding="utf-8")) for p in sorted(GROUND_TRUTH_DIR.glob("*.json"))}
@@ -58,13 +61,17 @@ def main():
         if not path.exists(): continue
         preds=read_method(path)
         total=correct=0; invoices_exact=0; err_counts={}
+        printed_correct=0
         for iid,gt in truths.items():
             pred=preds.get(iid,{})
             g=flatten_compare(gt); p=flatten_compare(pred)
             errors=[]
             for key,gv in g.items():
                 pv=p.get(key)
+                if key not in p and any(k.startswith(key+".") or k.startswith(key+"[") for k in p):pv="<unexpected structured value>"
                 ok=eq(key,gv,pv)
+                printed_gv=gt.get("rendered_"+key,gv) if key in {"subtotal","total"} else gv
+                printed_correct+=int(eq(key,printed_gv,pv))
                 total+=1; correct+=int(ok)
                 if not ok:
                     errors.append({"field":key,"expected":gv,"actual":pv})
@@ -72,11 +79,11 @@ def main():
                     err_counts[base]=err_counts.get(base,0)+1
             invoices_exact += int(not errors)
             details.append({"method":method,"invoice_id":iid,"correct_fields":len(g)-len(errors),"total_fields":len(g),"accuracy":(len(g)-len(errors))/len(g),"errors":errors})
-        summary.append({"method":method,"invoices":len(truths),"exact_invoices":invoices_exact,"field_correct":correct,"field_total":total,"field_accuracy":correct/total if total else 0,"top_error_fields":sorted(err_counts.items(),key=lambda x:x[1],reverse=True)[:8]})
+        summary.append({"method":method,"invoices":len(truths),"exact_invoices":invoices_exact,"field_correct":correct,"field_total":total,"field_accuracy":correct/total if total else 0,"printed_field_accuracy":printed_correct/total if total else 0,"prediction_rows":len(preds),"top_error_fields":sorted(err_counts.items(),key=lambda x:x[1],reverse=True)[:8]})
     (ROOT/"evaluation"/"details.json").write_text(json.dumps(details,ensure_ascii=False,indent=2),encoding="utf-8")
     (ROOT/"evaluation"/"summary.json").write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding="utf-8")
     with (ROOT/"evaluation"/"summary.csv").open("w",newline="",encoding="utf-8-sig") as f:
-        w=csv.DictWriter(f,fieldnames=["method","invoices","exact_invoices","field_correct","field_total","field_accuracy","top_error_fields"]);w.writeheader()
+        w=csv.DictWriter(f,fieldnames=["method","invoices","exact_invoices","field_correct","field_total","field_accuracy","printed_field_accuracy","prediction_rows","top_error_fields"]);w.writeheader()
         for r in summary:
             x=r.copy();x["top_error_fields"]=json.dumps(x["top_error_fields"],ensure_ascii=False);w.writerow(x)
     for r in summary: print(r["method"],f"field accuracy {r['field_accuracy']:.1%}","exact invoices",r["exact_invoices"])

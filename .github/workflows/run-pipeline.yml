@@ -1,68 +1,23 @@
-name: Run invoice extraction pipeline
-
+name: Check free invoice pipeline
 on:
   workflow_dispatch:
-
-permissions:
-  contents: write
-
 jobs:
-  run-pipeline:
+  baseline-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-
-      - name: Install Python dependencies
-        run: pip install -r requirements.txt
-
-      - name: Prepare source data
-        run: python scripts/setup_data.py
-
-      - name: Preflight
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: python scripts/preflight.py
-
-      - name: Run Method 1
-        run: python methods/method1_programmatic.py
-
-      - name: Run Method 2 — low-cost LLM
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          LOW_COST_MODEL: gpt-6-luna
-        run: python methods/method2_low_cost.py
-
-      - name: Run Method 3 — expensive LLM
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          EXPENSIVE_MODEL: gpt-6.1-sol
-        run: python methods/method3_expensive.py
-
-      - name: Evaluate Methods 1-3
-        run: python evaluation/compare_results.py
-
-      - name: Run Method 4 — refined
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          EXPENSIVE_MODEL: gpt-6.1-sol
-        run: python methods/method4_refined.py
-
-      - name: Final evaluation and cost calculation
-        run: |
-          python evaluation/compare_results.py
-          python scripts/calculate_costs.py
-          python scripts/build_db.py
-
-      - name: Commit generated results
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add outputs/ evaluation/ invoice_results.db
-          git commit -m "Run invoice extraction methods and evaluation" || exit 0
-          git push
+          python-version: '3.12'
+      - run: pip install 'pypdf>=5,<7'
+      - run: python scripts/setup_data.py
+      - run: python scripts/preflight.py
+      - run: python tests_local.py
+      - run: python methods/method1_programmatic.py
+      - run: python evaluation/compare_results.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: baseline-results
+          path: |
+            outputs/method1_programmatic.csv
+            evaluation/

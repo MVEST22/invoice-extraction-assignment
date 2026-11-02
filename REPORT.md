@@ -1,16 +1,12 @@
-# Invoice Extraction Comparison Report
+# Assignment 3 - run pending
 
-## Error analysis
+The non-LLM baseline processed all 50 invoices and matched 1,496 of 2,346 ground-truth fields (63.8%), with no fully exact invoices. Its main errors concern VAT rates, line-item amounts, wrapped descriptions, discounts and addresses. The two real LLM runs and the refined comparison are still pending; the completed notebook will regenerate this report from actual outputs, including a separate printed-value score for deliberately inconsistent invoice totals.
 
-The programmatic parser achieved 64.3% field-level accuracy (1,509 of 2,346 evaluated fields) across the 50 invoices and produced no completely exact invoice. Its most frequent errors were line-item VAT rates, unit prices and amounts, multiline descriptions and quantities, discount amounts, VAT amounts, and vendor postal codes, showing that fixed regex and line-position heuristics are brittle when invoice layouts, number formats and table structures vary. The remaining rows will be completed after the low-cost LLM, expensive LLM and refined method have been run against the same invoices and evaluated with the same ground truth.
+| Method | Status | Verified field score |
+|---|---|---:|
+| Non-LLM rules | Completed on 50 invoices | 63.8% |
+| Qwen 1.5B | Not yet run | Pending |
+| Qwen 7B (4-bit) | Not yet run | Pending |
+| Refined hybrid | Not yet run | Pending |
 
-| Method | Field accuracy | Exact invoices | Main mistakes |
-|---|---:|---:|---|
-| 1. Programmatic | 64.3% | 0 / 50 | Line-item VAT, unit price/amount, multiline items, discounts, VAT amount, address parsing |
-| 2. Low-cost LLM | Pending | Pending | Pending evaluation |
-| 3. Expensive LLM | Pending | Pending | Pending evaluation |
-| 4. Refined method | Pending | Pending | Pending evaluation |
-
-## LLM cost
-
-Cost figures will be calculated from the actual API usage JSON written by Methods 2–4. The project records input and output tokens per invoice and `scripts/calculate_costs.py` applies the configured per-million-token rates. The final paragraph should report the actual token totals, calculated USD cost for each LLM method, and whether any free credits or account-specific limits were used. No LLM cost is stated before the API calls are actually run.
+No paid API calls have been made. The planned open-model Colab runs have no API fee; token counts and generation times will be recorded when executed. A larger open model is not a purchased API tier: interpreting it as the “more expensive LLM” is a disclosed higher-compute substitution, subject to the lecturer's interpretation. Free GPU availability and session time are limited. The refined method reuses existing predictions without another LLM call.

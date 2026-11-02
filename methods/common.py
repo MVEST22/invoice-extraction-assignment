@@ -13,7 +13,7 @@ FIELDS = [
     "recipient", "recipient_country", "recipient_street", "recipient_postal_code", "recipient_city",
     "date", "due_date", "line_items_json", "subtotal", "vat_rate", "vat_amount",
     "discount_json", "discount_amount", "total", "currency", "payment_terms", "bank_details",
-    "is_credit_note"
+    "is_credit_note", "source_file"
 ]
 
 def pdf_text(path: Path) -> str:
@@ -68,7 +68,8 @@ def flatten(record: dict) -> dict:
         "currency": record.get("currency"),
         "payment_terms": record.get("payment_terms"),
         "bank_details": record.get("bank_details"),
-        "is_credit_note": bool(record.get("is_credit_note", False)),
+        "is_credit_note": record.get("is_credit_note"),
+        "source_file":record.get("source_file"),
     }
 
 def write_csv(records: list[dict], path: Path) -> None:
@@ -93,5 +94,5 @@ def unflatten(row: dict) -> dict:
         "subtotal":row.get("subtotal"),"vat_rate":row.get("vat_rate"),"vat_amount":row.get("vat_amount"),
         "discount":jload(row.get("discount_json"),None),"discount_amount":row.get("discount_amount"),"total":row.get("total"),
         "currency":row.get("currency"),"payment_terms":row.get("payment_terms"),"bank_details":row.get("bank_details"),
-        "is_credit_note":str(row.get("is_credit_note","")).lower() in {"true","1","yes"}
+        "is_credit_note":(None if row.get("is_credit_note") in (None,"") else str(row.get("is_credit_note")).lower() in {"true","1","yes"})
     }

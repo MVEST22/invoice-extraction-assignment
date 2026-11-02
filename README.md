@@ -1,83 +1,46 @@
-# Invoice Extraction Lab — AI in Accounting
+# Assignment 3 - Invoice Extraction Lab
 
-A P-Card-style web application for comparing four invoice-extraction methods against 50 provided ground-truth invoices.
+Compare four extraction methods on the supplied 50 invoice PDFs. Ground-truth JSON is used only after extraction to evaluate results.
 
-## Assignment mapping
+## Run without paid APIs
 
-1. **Method 1 — Programmatic/non-LLM**: `methods/method1_programmatic.py` uses `pypdf` + regex/line heuristics.
-2. **Method 2 — Low-cost LLM**: `methods/method2_low_cost.py` uses `gpt-6-luna` by default.
-3. **Method 3 — More expensive LLM**: `methods/method3_expensive.py` uses `gpt-6.1-sol` by default.
-4. **Method 4 — Refined**: `methods/method4_refined.py` adjudicates the first three outputs against the original invoice text, focusing on the errors found during evaluation.
+Open [Assignment_3_Free_Colab.ipynb in Colab](https://colab.research.google.com/github/MVEST22/invoice-extraction-assignment/blob/main/Assignment_3_Free_Colab.ipynb), choose **Runtime > Change runtime type > T4 GPU**, then **Runtime > Run all**. No code editing, API key, or purchase is required. Free GPU availability is not guaranteed. Stop if Colab asks you to purchase compute.
 
-The model choices and standard API rates were verified against OpenAI's current API documentation on 31 October 2026.
+The notebook downloads this repository and unpacks the two existing source archives in `data/`. It runs:
 
-## Source data
+1. **Non-LLM baseline:** pypdf text extraction and simple rules.
+2. **Smaller LLM:** Qwen2.5-1.5B-Instruct, half precision.
+3. **Larger LLM:** Qwen2.5-7B-Instruct, 4-bit quantization.
+4. **Refined hybrid:** larger-model candidate plus source-text rules for wrapped descriptions, addresses, VAT and discounts; arithmetic differences are flagged, not silently corrected.
 
-The assignment provides two source archives:
+The larger model is a higher-compute alternative, **not a paid API tier**. Both have $0 API fees. If the lecturer interprets “more expensive LLM” specifically as a more expensive hosted service, the open-model comparison is a disclosed substitution and needs the lecturer's acceptance. Parameter count and quantization do not establish a monetary cost ratio; actual token counts and generation time are recorded.
 
-- `pdf.zip` → the 50 invoice PDFs used as extraction input.
-- `ground_truth.zip` → the 50 JSON ground-truth records used **only for evaluation after extraction**.
+The final cell downloads `assignment3_results.zip`. Also download the executed notebook with **File > Download > Download .ipynb**. Return both for final review. Per-invoice raw answers and checkpoints are retained, so rerunning the same notebook in the same active runtime reuses completed outputs. Do not reset the runtime before downloading the results. Model downloads and 100 invoice extractions can take substantial time.
 
-The GitHub connector used to build this repository can write text/code files but cannot transfer the binary source archives from the working environment. Place the two supplied ZIP files in a local `data/` folder and run:
+## Current verified status
 
-```bash
-python scripts/setup_data.py
-```
+- Method 1 executed on all 50 uploaded invoices: **1,496 / 2,346 fields (63.8%)** against the original ground-truth accounting values; 0 fully exact invoices.
+- Methods 2, 3 and 4 have code prepared, but **their real Colab run is still required**. No LLM CSV or scores are fabricated.
+- The parser/refinement regression checks pass locally. GPU inference has not been tested in this workspace.
+- The old API-only methods are no longer the default. `methods/llm_extract.py` remains legacy reference code and is not invoked by the free notebook; its hosted API path has not been run.
 
-This creates `invoices/` and `ground_truth/`. The extraction methods never receive ground-truth JSON as model input.
+## Deliverables
 
-## Setup
+The Colab result ZIP contains all four `outputs/method*.csv` files (one row per source PDF, with nested line items stored as JSON), code, raw model answers, usage and refinement logs, evaluation details, `REPORT.md`, and the dashboard SQLite database. The report has one errors paragraph, one comparison table and one cost paragraph. Source PDF names anchor evaluation even when an LLM misreads the invoice number. Invalid model responses stay recorded as failures and score as missing fields; they are not replaced with answers from ground truth.
 
-```bash
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS/Linux
-source .venv/bin/activate
+Some invoices deliberately print incorrect subtotal or total amounts. The primary score uses the original ground-truth values; a second score substitutes the supplied `rendered_subtotal` and `rendered_total` solely for evaluating faithful extraction. This distinction is explicit in the report. No ground-truth corrections are fed into extraction or refinement.
 
-pip install -r requirements.txt
-npm install
-```
+## Dashboard and local use
 
-Copy `.env.example` to `.env` and add your OpenAI API key:
+The existing Express/SQLite dashboard is retained. After a completed run, copy `outputs/`, `evaluation/` and `invoice_results.db` from the results ZIP into this project; run `npm install` and `npm start`, then open `http://localhost:3000`. A live website is optional; the assignment requires CSVs, code and the short report.
 
-```text
-OPENAI_API_KEY=...
-LOW_COST_MODEL=gpt-6-luna
-EXPENSIVE_MODEL=gpt-6.1-sol
-```
+For a local CUDA machine: install `requirements.txt` plus compatible PyTorch, run `python scripts/setup_data.py`, then `python run_pipeline.py`. The old GitHub Actions API workflow is replaced with a CPU baseline check; it does not call paid services.
 
-Never commit `.env` to GitHub.
+## Sources
 
-## Run the four methods
+- [Assignment requirements](ASSIGNMENT_REQUIREMENTS.md).
+- [Qwen 1.5B model card](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct).
+- [Qwen 7B model card](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct).
+- [Hugging Face bitsandbytes documentation](https://huggingface.co/docs/transformers/quantization/bitsandbytes).
 
-```bash
-python methods/method1_programmatic.py
-python methods/method2_low_cost.py
-python methods/method3_expensive.py
-python methods/method4_refined.py
-```
-
-Each method writes its required CSV to `outputs/`.
-
-Then evaluate and rebuild the dashboard database:
-
-```bash
-python evaluation/compare_results.py
-python scripts/calculate_costs.py
-python scripts/build_db.py
-```
-
-## Start the dashboard
-
-```bash
-npm start
-```
-
-Open `http://localhost:3000`.
-
-The dashboard uses an Express backend and SQLite, so GitHub Pages alone cannot run the full application. GitHub is used for source control; a Node-capable host is needed for a live deployment.
-
-## Current status
-
-Method 1 has been run locally on all 50 invoices and evaluated at **64.3% field-level accuracy (1,509 / 2,346 fields correct)**. Its most frequent errors are line-item VAT rates, unit prices/amounts, multiline descriptions/quantities, discounts, VAT amounts, and vendor postal codes. Methods 2–4 still require an actual `OPENAI_API_KEY` so the submitted CSVs and token-cost figures come from genuine API calls rather than fabricated results.
+Models and model cards are external dependencies. The notebook records package versions and file hashes; model revisions are also recorded when available.

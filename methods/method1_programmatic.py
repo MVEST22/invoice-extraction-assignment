@@ -127,7 +127,7 @@ def parse_pdf(path: Path) -> dict:
     }
 
 def main():
-    records=[parse_pdf(p) for p in sorted(INVOICE_DIR.glob("*.pdf"))]
+    records=[parse_pdf(p)|{"source_file":p.name} for p in sorted(INVOICE_DIR.glob("*.pdf"))]
     write_csv(records, OUTPUT_DIR/"method1_programmatic.csv")
     print(f"Wrote {len(records)} invoices to outputs/method1_programmatic.csv")
 
