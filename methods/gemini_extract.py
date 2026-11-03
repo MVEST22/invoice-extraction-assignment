@@ -1,5 +1,5 @@
 """Gemini hosted extraction using a free-tier key. No ground-truth input or GPU."""
-import ast,hashlib,json,time
+import ast,hashlib,json,time,re
 from pathlib import Path
 import requests
 from common import ROOT,INVOICE_DIR,OUTPUT_DIR,pdf_text,write_csv
@@ -47,6 +47,44 @@ def parse_batch(response,source_files):
     if set(mapped)!=set(source_files):raise ValueError('Missing source invoice')
     return mapped
 
+def provider_error(response,key):
+    """Keep Google's diagnostic fields, excluding credentials and request headers."""
+    def clean(value):
+        text=str(value)
+        if key:text=text.replace(key,'[REDACTED]')
+        return re.sub(r'AIza[0-9A-Za-z_-]+','[REDACTED]',text)[:4000]
+    result={'http_status':response.status_code}
+    try:error=response.json().get('error',{})
+    except (ValueError,AttributeError,TypeError):error={}
+    if not isinstance(error,dict):error={}
+    for field in ['status','message']:
+        if field in error:result[field]=clean(error[field])
+    violations=[]
+    for detail in error.get('details',[]) or []:
+        if not isinstance(detail,dict):continue
+        for v in detail.get('violations',[]) or []:
+            if not isinstance(v,dict):continue
+            item={k:clean(v[k]) for k in ['quotaMetric','quotaId','quotaValue','description'] if k in v}
+            if isinstance(v.get('quotaDimensions'),dict):
+                item['dimensions']={clean(k):clean(val) for k,val in v['quotaDimensions'].items() if k in {'model','location'}}
+            violations.append(item)
+        if 'retryDelay' in detail:result['retry_delay']=clean(detail['retryDelay'])
+        if 'reason' in detail:result['reason']=clean(detail['reason'])
+    if violations:result['quota_violations']=violations
+    return result
+
+def short_quota_wait(diagnostic):
+    """Retry only an explicitly short limit; do not guess a daily reset."""
+    text=json.dumps(diagnostic).lower()
+    if any(v.get('quotaValue')=='0' for v in diagnostic.get('quota_violations',[])):return None
+    if any(x in text for x in ['perday','per_day','requests per day','permonth','per_month']):return None
+    match=re.fullmatch(r'(\d+(?:\.\d+)?)s',diagnostic.get('retry_delay',''))
+    if match:
+        seconds=float(match.group(1))
+        return max(1,int(seconds)+1) if seconds<60 else None
+    if any(x in text for x in ['perminute','per_minute','requests per minute']):return 60
+    return None
+
 def request_with_retry(key,model_id,body,sleep=time.sleep,max_attempts=5):
     """Retry transient service failures; never change model or billing tier."""
     last=None
@@ -59,10 +97,14 @@ def request_with_retry(key,model_id,body,sleep=time.sleep,max_attempts=5):
             last=None
         transient=last is None or last.status_code in {408,500,502,503,504}
         limited=last is not None and last.status_code==429
-        if limited and attempt>=1:return last,attempt+1
+        if limited:
+            diagnostic=provider_error(last,key)
+            print('Google error details (key removed): '+json.dumps(diagnostic,ensure_ascii=False),flush=True)
+            delay=short_quota_wait(diagnostic)
+            if attempt>=1 or delay is None:return last,attempt+1
         if not transient and not limited:return last,attempt+1
         if attempt==max_attempts-1:break
-        delay=30 if limited else min(5*2**attempt,40)
+        delay=delay if limited else min(5*2**attempt,40)
         status='network interruption' if last is None else 'HTTP '+str(last.status_code)
         print(f'Temporary {status}; retrying in {delay} seconds ({attempt+1}/{max_attempts}). Saved batches are retained.',flush=True)
         sleep(delay)
@@ -129,13 +171,15 @@ def run(key,method,model_id,batch_size=5,continue_transient=False):
                 if consecutive_failures>=3:break
                 continue
             if not r.ok:
-                (rawdir/'last_http_status.json').write_text(json.dumps({'status':r.status_code,'model':model_id,'completed_batches':len(usage)}))
+                diagnostic=provider_error(r,key)|{'model':model_id,'completed_batches':len(usage),'source_files':names}
+                (rawdir/'last_http_status.json').write_text(json.dumps(diagnostic,indent=2))
+                print('Google error details (key removed): '+json.dumps(diagnostic,ensure_ascii=False),flush=True)
                 if continue_transient and r.status_code in {408,500,502,503,504}:
                     defer(names,'HTTP '+str(r.status_code))
                     if consecutive_failures>=3:break
                     time.sleep(13)
                     continue
-                raise RuntimeError(f'Gemini HTTP {r.status_code}. Free quota, model access or request configuration needs review. No paid fallback was used; completed batches remain saved. Download the partial ZIP for troubleshooting.')
+                raise RuntimeError(f"Gemini HTTP {r.status_code}: {diagnostic.get('message','No detailed provider message returned.')}. Saved results retained; detailed diagnostic included in ZIP.")
             raw=r.json();candidate=(raw.get('candidates') or [{}])[0]
             text=''.join(p.get('text','') for p in candidate.get('content',{}).get('parts',[]) if not p.get('thought'))
             counts=raw.get('usageMetadata',{})
