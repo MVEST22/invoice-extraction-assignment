@@ -1,0 +1,53 @@
+{
+  "signature": "5d0da36e88eafbd1ab15e4d1df93ac4906b19a003ed9660b6c3982923bdcc543",
+  "model": "gemini-3.6-flash",
+  "returned_model_version": "gemini-3.6-flash",
+  "source_files": [
+    "INV-2026-0006.pdf"
+  ],
+  "network_attempts": 1,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0006\", \"vendor\": \"Stark Industries Europe Ltd\", \"vendor_country\": \"GB\", \"vendor_address\": {\"street\": \"25 Greywell Close\", \"postal_code\": \"EC2R 6AA\", \"city\": \"London\"}, \"recipient\": \"Benelux Windmill Automation B.V.\", \"recipient_country\": \"NL\", \"recipient_address\": {\"street\": \"Walvisgracht 421\", \"postal_code\": \"1017 BP\", \"city\": \"Amsterdam\"}, \"date\": \"2026-03-05\", \"due_date\": \"2026-03-05\", \"line_items\": [{\"description\": \"Marketing collateral refresh\", \"quantity\": 1.0, \"unit_price\": \"6404.64\", \"vat_rate\": \"0.20\", \"amount\": \"6404.64\"}, {\"description\": \"Board meeting facilitation\", \"quantity\": 5.0, \"unit_price\": \"1819.56\", \"vat_rate\": \"0.20\", \"amount\": \"9097.80\"}], \"subtotal\": \"15507.44\", \"vat_rate\": \"0.20\", \"vat_amount\": null, \"discount\": {\"type\": \"percentage\", \"value\": \"5\", \"applied_to\": \"subtotal\", \"description\": \"5% early payment discount\", \"conditional\": true}, \"discount_amount\": \"645.94\", \"total\": \"14856.50\", \"currency\": \"EUR\", \"payment_terms\": \"Due upon receipt\", \"bank_details\": \"Lloyds Bank | IBAN: GB01 1333 9804 2776 4157 74 | BIC: LOYDGB21XXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0006.pdf\"}]}",
+              "thoughtSignature": "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"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 745,
+      "candidatesTokenCount": 468,
+      "totalTokenCount": 2706,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 745
+        }
+      ],
+      "thoughtsTokenCount": 1493,
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.6-flash",
+    "responseId": "qG_oaqDaD_y_ytMP2JuPoAM"
+  },
+  "raw_response": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0006\", \"vendor\": \"Stark Industries Europe Ltd\", \"vendor_country\": \"GB\", \"vendor_address\": {\"street\": \"25 Greywell Close\", \"postal_code\": \"EC2R 6AA\", \"city\": \"London\"}, \"recipient\": \"Benelux Windmill Automation B.V.\", \"recipient_country\": \"NL\", \"recipient_address\": {\"street\": \"Walvisgracht 421\", \"postal_code\": \"1017 BP\", \"city\": \"Amsterdam\"}, \"date\": \"2026-03-05\", \"due_date\": \"2026-03-05\", \"line_items\": [{\"description\": \"Marketing collateral refresh\", \"quantity\": 1.0, \"unit_price\": \"6404.64\", \"vat_rate\": \"0.20\", \"amount\": \"6404.64\"}, {\"description\": \"Board meeting facilitation\", \"quantity\": 5.0, \"unit_price\": \"1819.56\", \"vat_rate\": \"0.20\", \"amount\": \"9097.80\"}], \"subtotal\": \"15507.44\", \"vat_rate\": \"0.20\", \"vat_amount\": null, \"discount\": {\"type\": \"percentage\", \"value\": \"5\", \"applied_to\": \"subtotal\", \"description\": \"5% early payment discount\", \"conditional\": true}, \"discount_amount\": \"645.94\", \"total\": \"14856.50\", \"currency\": \"EUR\", \"payment_terms\": \"Due upon receipt\", \"bank_details\": \"Lloyds Bank | IBAN: GB01 1333 9804 2776 4157 74 | BIC: LOYDGB21XXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0006.pdf\"}]}",
+  "finish_reason": "STOP",
+  "input_tokens": 745,
+  "output_tokens": 468,
+  "thinking_tokens": 1493,
+  "request_seconds": 10.165267720999964,
+  "provider": "Gemini API",
+  "billing_basis": "User-selected Free Tier project; no billing enabled. Not independently verified by API.",
+  "standard_paid_rate_input_per_m": 0.75,
+  "standard_paid_rate_output_per_m": 3.75,
+  "pricing_checked": "2026-11-02",
+  "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing"
+}

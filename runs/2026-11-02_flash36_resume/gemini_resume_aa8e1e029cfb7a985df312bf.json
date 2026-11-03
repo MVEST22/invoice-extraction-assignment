@@ -1,0 +1,53 @@
+{
+  "signature": "aa8e1e029cfb7a985df312bff4210dc9314a3ef2c8afb801e4a0361a2940b769",
+  "model": "gemini-3.6-flash",
+  "returned_model_version": "gemini-3.6-flash",
+  "source_files": [
+    "INV-2026-0008.pdf"
+  ],
+  "network_attempts": 1,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0008\", \"vendor\": \"Los Pollos Hermanos Europe LLC\", \"vendor_country\": \"GB\", \"vendor_address\": {\"street\": \"25 Greywell Close\", \"postal_code\": \"EC2R 6AA\", \"city\": \"London\"}, \"recipient\": \"Rheintal Infrastruktur Holding AG\", \"recipient_country\": \"AT\", \"recipient_address\": {\"street\": \"Stummfuchsgasse 47\", \"postal_code\": \"1100\", \"city\": \"Wien\"}, \"date\": \"2026-03-13\", \"due_date\": \"2026-04-12\", \"line_items\": [{\"description\": \"Penetration testing — scope per SOW 2026-03\", \"quantity\": 1.0, \"unit_price\": \"24420.90\", \"vat_rate\": null, \"amount\": \"24420.90\"}, {\"description\": \"Annual subscription — enterprise tier (unused features included)\", \"quantity\": 1.0, \"unit_price\": \"33326.80\", \"vat_rate\": null, \"amount\": \"33326.80\"}, {\"description\": \"Board meeting facilitation\", \"quantity\": 4.0, \"unit_price\": \"11533.50\", \"vat_rate\": null, \"amount\": \"46134.00\"}, {\"description\": \"Consulting hours — Associate\", \"quantity\": 20.0, \"unit_price\": \"214.70\", \"vat_rate\": null, \"amount\": \"4294.00\"}, {\"description\": \"Executive workshop (2 days)\", \"quantity\": 3.0, \"unit_price\": \"12873.50\", \"vat_rate\": null, \"amount\": \"38620.50\"}, {\"description\": \"Quarterly newsletter design\", \"quantity\": 1.0, \"unit_price\": \"20864.30\", \"vat_rate\": null, \"amount\": \"20864.30\"}], \"subtotal\": \"167660.50\", \"vat_rate\": \"0.20\", \"vat_amount\": \"33532.10\", \"discount\": null, \"discount_amount\": null, \"total\": \"201192.60\", \"currency\": \"EUR\", \"payment_terms\": \"2/10 net 30\", \"bank_details\": \"Barclays | IBAN: GB77 1413 7186 7225 0145 01 | BIC: BARCGB22XXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0008.pdf\"}]}",
+              "thoughtSignature": "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"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 902,
+      "candidatesTokenCount": 667,
+      "totalTokenCount": 2208,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 902
+        }
+      ],
+      "thoughtsTokenCount": 639,
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.6-flash",
+    "responseId": "2W_oauS6Ma-iytMPkL2rYQ"
+  },
+  "raw_response": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0008\", \"vendor\": \"Los Pollos Hermanos Europe LLC\", \"vendor_country\": \"GB\", \"vendor_address\": {\"street\": \"25 Greywell Close\", \"postal_code\": \"EC2R 6AA\", \"city\": \"London\"}, \"recipient\": \"Rheintal Infrastruktur Holding AG\", \"recipient_country\": \"AT\", \"recipient_address\": {\"street\": \"Stummfuchsgasse 47\", \"postal_code\": \"1100\", \"city\": \"Wien\"}, \"date\": \"2026-03-13\", \"due_date\": \"2026-04-12\", \"line_items\": [{\"description\": \"Penetration testing — scope per SOW 2026-03\", \"quantity\": 1.0, \"unit_price\": \"24420.90\", \"vat_rate\": null, \"amount\": \"24420.90\"}, {\"description\": \"Annual subscription — enterprise tier (unused features included)\", \"quantity\": 1.0, \"unit_price\": \"33326.80\", \"vat_rate\": null, \"amount\": \"33326.80\"}, {\"description\": \"Board meeting facilitation\", \"quantity\": 4.0, \"unit_price\": \"11533.50\", \"vat_rate\": null, \"amount\": \"46134.00\"}, {\"description\": \"Consulting hours — Associate\", \"quantity\": 20.0, \"unit_price\": \"214.70\", \"vat_rate\": null, \"amount\": \"4294.00\"}, {\"description\": \"Executive workshop (2 days)\", \"quantity\": 3.0, \"unit_price\": \"12873.50\", \"vat_rate\": null, \"amount\": \"38620.50\"}, {\"description\": \"Quarterly newsletter design\", \"quantity\": 1.0, \"unit_price\": \"20864.30\", \"vat_rate\": null, \"amount\": \"20864.30\"}], \"subtotal\": \"167660.50\", \"vat_rate\": \"0.20\", \"vat_amount\": \"33532.10\", \"discount\": null, \"discount_amount\": null, \"total\": \"201192.60\", \"currency\": \"EUR\", \"payment_terms\": \"2/10 net 30\", \"bank_details\": \"Barclays | IBAN: GB77 1413 7186 7225 0145 01 | BIC: BARCGB22XXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0008.pdf\"}]}",
+  "finish_reason": "STOP",
+  "input_tokens": 902,
+  "output_tokens": 667,
+  "thinking_tokens": 639,
+  "request_seconds": 6.278662927000028,
+  "provider": "Gemini API",
+  "billing_basis": "User-selected Free Tier project; no billing enabled. Not independently verified by API.",
+  "standard_paid_rate_input_per_m": 0.75,
+  "standard_paid_rate_output_per_m": 3.75,
+  "pricing_checked": "2026-11-02",
+  "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing"
+}

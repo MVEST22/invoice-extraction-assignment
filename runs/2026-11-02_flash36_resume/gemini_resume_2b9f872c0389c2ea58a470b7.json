@@ -1,0 +1,53 @@
+{
+  "signature": "2b9f872c0389c2ea58a470b7a105209f604c1a82f47e5ef7b92ce018b0b813dc",
+  "model": "gemini-3.6-flash",
+  "returned_model_version": "gemini-3.6-flash",
+  "source_files": [
+    "INV-2026-0004.pdf"
+  ],
+  "network_attempts": 2,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0004\", \"vendor\": \"Vandelay Industries GmbH\", \"vendor_country\": \"AT\", \"vendor_address\": {\"street\": \"Holunderried 4\", \"postal_code\": \"1020\", \"city\": \"Wien\"}, \"recipient\": \"Mittelstand Digital Solutions GmbH\", \"recipient_country\": \"DE\", \"recipient_address\": {\"street\": \"Kupferschmiedsweg 17\", \"postal_code\": \"20354\", \"city\": \"Hamburg\"}, \"date\": \"2026-02-23\", \"due_date\": \"2026-03-25\", \"line_items\": [{\"description\": \"Legal opinion — cross-border financing\", \"quantity\": 1, \"unit_price\": \"6152.40\", \"vat_rate\": null, \"amount\": \"6152.40\"}, {\"description\": \"Quarterly newsletter design\", \"quantity\": 1, \"unit_price\": \"13741.10\", \"vat_rate\": null, \"amount\": \"13741.10\"}, {\"description\": \"Software licence renewal — 50 seats\", \"quantity\": 2, \"unit_price\": \"28410.10\", \"vat_rate\": null, \"amount\": \"56820.20\"}, {\"description\": \"Strategic advisory — Q1 2026 (PowerPoints not included)\", \"quantity\": 3, \"unit_price\": \"36360.40\", \"vat_rate\": null, \"amount\": \"109081.20\"}], \"subtotal\": \"185794.90\", \"vat_rate\": \"0.20\", \"vat_amount\": \"37158.98\", \"discount\": null, \"discount_amount\": null, \"total\": \"218494.80\", \"currency\": \"EUR\", \"payment_terms\": \"2/10 net 30\", \"bank_details\": \"Bank: Bank Austria | IBAN: AT88 1954 3276 2301 3199 | BIC: BKAUATWWXXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0004.pdf\"}]}",
+              "thoughtSignature": "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"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 835,
+      "candidatesTokenCount": 550,
+      "totalTokenCount": 2587,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 835
+        }
+      ],
+      "thoughtsTokenCount": 1202,
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.6-flash",
+    "responseId": "TW_oas3rJ5zLytMP3cqL0AE"
+  },
+  "raw_response": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0004\", \"vendor\": \"Vandelay Industries GmbH\", \"vendor_country\": \"AT\", \"vendor_address\": {\"street\": \"Holunderried 4\", \"postal_code\": \"1020\", \"city\": \"Wien\"}, \"recipient\": \"Mittelstand Digital Solutions GmbH\", \"recipient_country\": \"DE\", \"recipient_address\": {\"street\": \"Kupferschmiedsweg 17\", \"postal_code\": \"20354\", \"city\": \"Hamburg\"}, \"date\": \"2026-02-23\", \"due_date\": \"2026-03-25\", \"line_items\": [{\"description\": \"Legal opinion — cross-border financing\", \"quantity\": 1, \"unit_price\": \"6152.40\", \"vat_rate\": null, \"amount\": \"6152.40\"}, {\"description\": \"Quarterly newsletter design\", \"quantity\": 1, \"unit_price\": \"13741.10\", \"vat_rate\": null, \"amount\": \"13741.10\"}, {\"description\": \"Software licence renewal — 50 seats\", \"quantity\": 2, \"unit_price\": \"28410.10\", \"vat_rate\": null, \"amount\": \"56820.20\"}, {\"description\": \"Strategic advisory — Q1 2026 (PowerPoints not included)\", \"quantity\": 3, \"unit_price\": \"36360.40\", \"vat_rate\": null, \"amount\": \"109081.20\"}], \"subtotal\": \"185794.90\", \"vat_rate\": \"0.20\", \"vat_amount\": \"37158.98\", \"discount\": null, \"discount_amount\": null, \"total\": \"218494.80\", \"currency\": \"EUR\", \"payment_terms\": \"2/10 net 30\", \"bank_details\": \"Bank: Bank Austria | IBAN: AT88 1954 3276 2301 3199 | BIC: BKAUATWWXXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0004.pdf\"}]}",
+  "finish_reason": "STOP",
+  "input_tokens": 835,
+  "output_tokens": 550,
+  "thinking_tokens": 1202,
+  "request_seconds": 61.514248296000005,
+  "provider": "Gemini API",
+  "billing_basis": "User-selected Free Tier project; no billing enabled. Not independently verified by API.",
+  "standard_paid_rate_input_per_m": 0.75,
+  "standard_paid_rate_output_per_m": 3.75,
+  "pricing_checked": "2026-11-02",
+  "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing"
+}
