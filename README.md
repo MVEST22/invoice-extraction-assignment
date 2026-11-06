@@ -1,64 +1,39 @@
-# Assignment 3 - Invoice Extraction Lab
+# Assignment 3 — Invoice Extraction Comparison
 
-Compare four extraction methods on the supplied 50 invoice PDFs. Ground-truth JSON is used only after extraction to evaluate results.
+Completed on 6 November 2026. All four methods processed the same 50 source invoice PDFs. The final results and report are available below; no API run is required to review them.
 
-## Recommended now: Gemini in Colab, without a GPU
+## Final results
 
-Open [Assignment_3_Gemini_Colab.ipynb](https://colab.research.google.com/github/MVEST22/invoice-extraction-assignment/blob/main/Assignment_3_Gemini_Colab.ipynb), select **CPU**, and choose **Run all**. Enter your key from a **Free Tier Google AI Studio project with billing disabled** only in the private prompt. No local model downloads or GPU access are needed. Do not paste the key into source, chat or GitHub.
+| Method | Invoices | Correct fields | Field accuracy |
+|---|---:|---:|---:|
+| 1 — Programmatic rules | 50 | 1,496 / 2,346 | 63.8% |
+| 2 — Gemini 3.5 Flash-Lite | 50 | 1,917 / 2,346 | 81.7% |
+| 3 — Gemini 3.6 Flash | 50 | 1,907 / 2,346 | 81.3% |
+| 4 — Refined hybrid | 50 | 2,016 / 2,346 | 85.9% |
 
-This uses Gemini Flash-Lite for Method 2 and the higher-standard-price Gemini Flash for Method 3, then the same source-only hybrid refinement. It selects only documented free-tier model IDs that your key lists as available: preferred pair 3.5 Flash-Lite and 3.8 Flash, with 3.1 Flash-Lite or 3.6 Flash as allowlisted alternatives. The actual selected models and returned versions are saved. Model-list access does not verify project billing status: using your unbilled Free Tier project is essential. Standard rates checked on 2 November 2026 are recorded separately from free-tier charges. Both model tiers may use the free allowance; no paid credits need to be purchased.
-
-Five source invoices are grouped in each synchronous request (not the paid asynchronous Batch API). Ten successful generation requests per model cover all 50 invoices. Raw responses and checkpoints are saved immediately. An unresolved quota/access error stops the run instead of upgrading. Runtime depends on quotas and service latency; a fixed completion time is not promised. Google free-tier data-use terms apply to the submitted source text. Ground-truth JSON is never sent to Gemini.
-
-The final cell downloads `assignment3_results.zip`; also download the executed notebook. The returned checkpoint confirms 50 genuine Flash-Lite results and five Flash results; the run is still incomplete. No Gemini results or costs have been invented. The report and dashboard database are rebuilt after a successful real run. Do not mix this with an earlier local-model run.
-
-## GPU quota reached? Slower local CPU alternative
-
-Open [Assignment_3_CPU_Colab.ipynb](https://colab.research.google.com/github/MVEST22/invoice-extraction-assignment/blob/main/Assignment_3_CPU_Colab.ipynb) and select **CPU**, then **Run all**. It uses Qwen2.5-0.5B and Qwen2.5-1.5B in float32; no GPU, API key or payment is required. This changes the models being compared and the report records their actual names. CPU inference may take several hours; free-session limits still apply. Keep the runtime active and download results before disconnecting. This is a new, unexecuted path until actual CPU results are returned.
-
-## Run without paid APIs
-
-Open [Assignment_3_Free_Colab.ipynb in Colab](https://colab.research.google.com/github/MVEST22/invoice-extraction-assignment/blob/main/Assignment_3_Free_Colab.ipynb), choose **Runtime > Change runtime type > T4 GPU**, then **Runtime > Run all**. No code editing, API key, or purchase is required. Free GPU availability is not guaranteed. Stop if Colab asks you to purchase compute.
-
-The notebook downloads this repository and unpacks the two existing source archives in `data/`. It runs:
-
-1. **Non-LLM baseline:** pypdf text extraction and simple rules.
-2. **Smaller LLM:** Qwen2.5-1.5B-Instruct, half precision.
-3. **Larger LLM:** Qwen2.5-7B-Instruct, 4-bit quantization.
-4. **Refined hybrid:** larger-model candidate plus source-text rules for wrapped descriptions, addresses, VAT and discounts; arithmetic differences are flagged, not silently corrected.
-
-The larger model is a higher-compute alternative, **not a paid API tier**. Both have $0 API fees. If the lecturer interprets “more expensive LLM” specifically as a more expensive hosted service, the open-model comparison is a disclosed substitution and needs the lecturer's acceptance. Parameter count and quantization do not establish a monetary cost ratio; actual token counts and generation time are recorded.
-
-The final cell downloads `assignment3_results.zip`. Also download the executed notebook with **File > Download > Download .ipynb**. Return both for final review. Per-invoice raw answers and checkpoints are retained, so rerunning the same notebook in the same active runtime reuses completed outputs. Do not reset the runtime before downloading the results. Model downloads and 100 invoice extractions can take substantial time.
-
-## Current verified status
-
-- Method 1 executed on all 50 uploaded invoices: **1,496 / 2,346 fields (63.8%)** against the original ground-truth accounting values; 0 fully exact invoices.
-- A returned Gemini checkpoint verifies Method 2 completed all 50 invoices: **1,917 / 2,346 fields (81.7%)**. Method 3 has only five saved invoices; Method 4 has not run. See `REPORT.md` and `runs/2026-11-02_partial/`. No missing LLM outputs or scores are fabricated.
-- The parser/refinement regression checks pass locally. GPU inference has not been tested in this workspace.
-- The old API-only methods are no longer the default. `methods/llm_extract.py` remains legacy reference code and is not invoked by the free notebook; its hosted API path has not been run.
+The refined hybrid uses method 3 candidates for all 50 invoices and adds source-text rules. The higher-priced LLM did not outperform the lower-priced model in this run. Refinement improved the field score by 4.6 percentage points over method 3. These are in-sample results, not estimates of performance on unseen invoices.
 
 ## Deliverables
 
-The Colab result ZIP contains all four `outputs/method*.csv` files (one row per source PDF, with nested line items stored as JSON), code, raw model answers, usage and refinement logs, evaluation details, `REPORT.md`, and the dashboard SQLite database. The report has one errors paragraph, one comparison table and one cost paragraph. Source PDF names anchor evaluation even when an LLM misreads the invoice number. Invalid model responses stay recorded as failures and score as missing fields; they are not replaced with answers from ground truth.
+- [Short error report, comparison table and cost paragraph](REPORT.md).
+- [Method 1 CSV](outputs/method1_programmatic.csv), [method 2 CSV](outputs/method2_low_cost.csv), [method 3 CSV](outputs/method3_expensive.csv), [method 4 CSV](outputs/method4_refined.csv).
+- [Extraction and refinement code](methods/), [evaluation](evaluation/), [raw model responses](outputs/raw/) and [refinement provenance](outputs/method4_refinement_log.json).
+- [Completed run manifest](run_manifest.json), including model IDs, package versions and input/code hashes from the executed run.
+- [Original completed Colab results ZIP](runs/2026-11-06_complete/assignment3_results.zip), preserved unchanged as execution evidence.
+- [Dashboard database](invoice_results.db).
 
-Some invoices deliberately print incorrect subtotal or total amounts. The primary score uses the original ground-truth values; a second score substitutes the supplied `rendered_subtotal` and `rendered_total` solely for evaluating faithful extraction. This distinction is explicit in the report. No ground-truth corrections are fed into extraction or refinement.
+Ground truth is used only for evaluation. Source filenames align predictions with the supplied PDFs. The main score compares original accounting values; the report also gives a printed-value score for the deliberately inconsistent subtotal/total amounts. Missing fields remain errors. No ground-truth values are substituted into predictions.
 
-## Dashboard and local use
+## Cost and reproducibility
 
-The existing Express/SQLite dashboard is retained. After a completed run, copy `outputs/`, `evaluation/` and `invoice_results.db` from the results ZIP into this project; run `npm install` and `npm start`, then open `http://localhost:3000`. A live website is optional; the assignment requires CSVs, code and the short report.
+The run used the user-selected Gemini Free Tier project. The recorded API charge is $0 conditional on that free allowance; the inference API does not independently verify billing. Standard uncached paid-equivalent estimates were $0.0887 for method 2 and $0.3851 for method 3, using rates checked on 2 November 2026. Method 4 makes no additional model calls. See the report and usage logs for token counts and timing.
 
-For a local CUDA machine: install `requirements.txt` plus compatible PyTorch, run `python scripts/setup_data.py`, then `python run_pipeline.py`. The old GitHub Actions API workflow is replaced with a CPU baseline check; it does not call paid services.
+The [recovery notebook](Assignment_3_Recovery_Colab.ipynb) is the source template used to finish the hosted run. The original ZIP contains an unexecuted template, not an exported executed notebook. Earlier GPU/CPU notebooks are alternative implementations and are not the source of the final scores. Earlier partial runs in `runs/` are historical checkpoints; the completed run above is authoritative.
 
-## Sources
+To reproduce evaluation locally, install `pypdf>=5,<7` and `requests`, run `python scripts/setup_data.py`, then `python evaluation/compare_results.py` and `python scripts/build_report.py`. This reuses the saved predictions without API calls. To rebuild refinement, run `python methods/method4_refined.py` before evaluation.
 
-- [Assignment requirements](ASSIGNMENT_REQUIREMENTS.md).
-- [Qwen 1.5B model card](https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct).
-- [Qwen 7B model card](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct).
-- [Hugging Face bitsandbytes documentation](https://huggingface.co/docs/transformers/quantization/bitsandbytes).
+## Dashboard
 
-Models and model cards are external dependencies. The notebook records package versions and file hashes; model revisions are also recorded when available.
+Run `npm install` and `npm start`, then open `http://localhost:3000`. The included SQLite database contains the completed results. Hosting a live website is optional.
 
-## Preserved partial run
-
-The original user-returned ZIP is saved as `runs/2026-11-02_partial/checkpoint.zip`, with directly readable CSVs, usage logs and manifest beside it. All 50 source PDF hashes match the supplied input archive. Method 2's 81.7% score was independently reproduced locally. The ZIP preserves the original, outdated report template as evidence; use the repository root `REPORT.md` for the verified interim summary. The overall 9.8% shown for Method 3 by the checkpoint's evaluator includes 45 missing invoices and must not be presented as its accuracy on a completed 50-invoice run. More results and the actual executed notebook are still needed.
+[Assignment requirements](ASSIGNMENT_REQUIREMENTS.md).

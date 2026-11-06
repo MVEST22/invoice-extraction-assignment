@@ -1,1 +1,3 @@
-The non-LLM baseline CSV was actually run on all 50 input PDFs. Methods 2-4 will be created by Assignment_3_Free_Colab.ipynb; they are not yet submitted as completed results. Raw model answers, source-file identities and token/runtime logs are retained. Ground truth is used only in evaluation, never as extraction input.
+# Completed extraction outputs
+
+Each of the four CSV files contains 50 unique source invoices. The completed run is documented in ../run_manifest.json and ../REPORT.md. Raw responses, token usage and refinement provenance are retained here.

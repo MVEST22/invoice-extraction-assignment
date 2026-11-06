@@ -1,0 +1,53 @@
+{
+  "signature": "2596ffd4b7a41a16ee67d18c1fead1c51be5dcb54f27245ab4570803c6733c36",
+  "model": "gemini-3.6-flash",
+  "returned_model_version": "gemini-3.6-flash",
+  "source_files": [
+    "INV-2026-0013.pdf"
+  ],
+  "network_attempts": 1,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0013\", \"vendor\": \"Pierce & Pierce Holdings Ltd\", \"vendor_country\": \"GB\", \"vendor_address\": {\"street\": \"25 Greywell Close\", \"postal_code\": \"EC2R 6AA\", \"city\": \"London\"}, \"recipient\": \"Bergkristall Maschinenbau GmbH\", \"recipient_country\": \"DE\", \"recipient_address\": {\"street\": \"Beispielgasse 34\", \"postal_code\": \"80331\", \"city\": \"München\"}, \"date\": \"2026-01-23\", \"due_date\": \"2026-02-06\", \"line_items\": [{\"description\": \"Executive workshop (2 days)\", \"quantity\": null, \"unit_price\": null, \"vat_rate\": \"0.20\", \"amount\": \"18892.68\"}], \"subtotal\": \"18882.68\", \"vat_rate\": \"0.20\", \"vat_amount\": null, \"discount\": null, \"discount_amount\": null, \"total\": \"18892.68\", \"currency\": \"EUR\", \"payment_terms\": \"Payable within 14 days\", \"bank_details\": \"Lloyds Bank | IBAN: GB54 9098 2042 1754 2301 44 | BIC: LOYDGB21XXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0013.pdf\"}]}",
+              "thoughtSignature": "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"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 684,
+      "candidatesTokenCount": 371,
+      "totalTokenCount": 2699,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 684
+        }
+      ],
+      "thoughtsTokenCount": 1644,
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.6-flash",
+    "responseId": "Z3DoavzbAdeoytMPysf_oAM"
+  },
+  "raw_response": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0013\", \"vendor\": \"Pierce & Pierce Holdings Ltd\", \"vendor_country\": \"GB\", \"vendor_address\": {\"street\": \"25 Greywell Close\", \"postal_code\": \"EC2R 6AA\", \"city\": \"London\"}, \"recipient\": \"Bergkristall Maschinenbau GmbH\", \"recipient_country\": \"DE\", \"recipient_address\": {\"street\": \"Beispielgasse 34\", \"postal_code\": \"80331\", \"city\": \"München\"}, \"date\": \"2026-01-23\", \"due_date\": \"2026-02-06\", \"line_items\": [{\"description\": \"Executive workshop (2 days)\", \"quantity\": null, \"unit_price\": null, \"vat_rate\": \"0.20\", \"amount\": \"18892.68\"}], \"subtotal\": \"18882.68\", \"vat_rate\": \"0.20\", \"vat_amount\": null, \"discount\": null, \"discount_amount\": null, \"total\": \"18892.68\", \"currency\": \"EUR\", \"payment_terms\": \"Payable within 14 days\", \"bank_details\": \"Lloyds Bank | IBAN: GB54 9098 2042 1754 2301 44 | BIC: LOYDGB21XXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0013.pdf\"}]}",
+  "finish_reason": "STOP",
+  "input_tokens": 684,
+  "output_tokens": 371,
+  "thinking_tokens": 1644,
+  "request_seconds": 10.497166344999982,
+  "provider": "Gemini API",
+  "billing_basis": "User-selected Free Tier project; no billing enabled. Not independently verified by API.",
+  "standard_paid_rate_input_per_m": 0.75,
+  "standard_paid_rate_output_per_m": 3.75,
+  "pricing_checked": "2026-11-02",
+  "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing"
+}

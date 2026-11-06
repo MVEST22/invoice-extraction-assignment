@@ -10,7 +10,7 @@ lines.append(('All four methods processed 50 invoices.' if complete else 'INCOMP
 logpath=ROOT/'outputs/method4_refinement_log.json'
 if logpath.exists():
     log=json.loads(logpath.read_text());counts={str(i):sum(r.get('base_candidate_method')==i for r in log) for i in (1,2,3)}
-    lines[-1]+=' Refinement base candidates: method 1 for '+counts['1'].__str__()+' invoices, method 2 for '+counts['2'].__str__()+' and method 3 for '+counts['3'].__str__()+'. When method 3 is incomplete this hybrid result is provisional and will be regenerated after completion.'
+    lines[-1]+=' Refinement base candidates: method 1 for '+counts['1'].__str__()+' invoices, method 2 for '+counts['2'].__str__()+' and method 3 for '+counts['3'].__str__()+'.'+(' This hybrid result is provisional until method 3 is complete.' if not complete else '')
 lines+=['','| Method | Rows | Correct / fields | Field score | Printed-value score | Main error fields |','|---|---:|---:|---:|---:|---|']
 names={'method1':'1: non-LLM rules','method2':'2: '+models.get('method2_low_cost','pending'),'method3':'3: '+models.get('method3_expensive','pending'),'method4':'4: refined hybrid'}
 for r in summary:

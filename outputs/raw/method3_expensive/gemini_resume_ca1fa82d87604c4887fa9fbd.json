@@ -1,0 +1,53 @@
+{
+  "signature": "ca1fa82d87604c4887fa9fbd1487dcbb339011c17bc846b9030a87e4b6b61ff8",
+  "model": "gemini-3.6-flash",
+  "returned_model_version": "gemini-3.6-flash",
+  "source_files": [
+    "INV-2026-0050.pdf"
+  ],
+  "network_attempts": 1,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0050\", \"vendor\": \"Sabre International GmbH\", \"vendor_country\": \"AT\", \"vendor_address\": {\"street\": \"Nebelkaiserweg 128\", \"postal_code\": \"1070\", \"city\": \"Wien\"}, \"recipient\": \"Mittelstand Digital Solutions GmbH\", \"recipient_country\": \"DE\", \"recipient_address\": {\"street\": \"Beispielgasse 34\", \"postal_code\": \"80331\", \"city\": \"München\"}, \"date\": \"2026-01-23\", \"due_date\": \"2026-02-22\", \"line_items\": [{\"description\": \"Training materials — onboarding programme\", \"quantity\": null, \"unit_price\": \"40427.30\", \"vat_rate\": null, \"amount\": \"40427.30\"}, {\"description\": \"Regulatory filing — Companies House\", \"quantity\": null, \"unit_price\": \"28088.10\", \"vat_rate\": null, \"amount\": \"28088.10\"}, {\"description\": \"Cloud infrastructure migration — Phase 2 of 7 (estimated)\", \"quantity\": 3, \"unit_price\": \"29070.20\", \"vat_rate\": null, \"amount\": \"87210.60\"}], \"subtotal\": \"155726.00\", \"vat_rate\": \"0.20\", \"vat_amount\": \"31145.20\", \"discount\": null, \"discount_amount\": null, \"total\": \"186871.20\", \"currency\": \"EUR\", \"payment_terms\": \"2/10 net 30\", \"bank_details\": \"Raiffeisenbank Austria | IBAN: AT47 8054 9940 5795 5152 | BIC: RZBAATWWXXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0050.pdf\"}]}",
+              "thoughtSignature": "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"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 761,
+      "candidatesTokenCount": 494,
+      "totalTokenCount": 2887,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 761
+        }
+      ],
+      "thoughtsTokenCount": 1632,
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.6-flash",
+    "responseId": "jbntapbGA_SLytMPspCK-Q0"
+  },
+  "raw_response": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0050\", \"vendor\": \"Sabre International GmbH\", \"vendor_country\": \"AT\", \"vendor_address\": {\"street\": \"Nebelkaiserweg 128\", \"postal_code\": \"1070\", \"city\": \"Wien\"}, \"recipient\": \"Mittelstand Digital Solutions GmbH\", \"recipient_country\": \"DE\", \"recipient_address\": {\"street\": \"Beispielgasse 34\", \"postal_code\": \"80331\", \"city\": \"München\"}, \"date\": \"2026-01-23\", \"due_date\": \"2026-02-22\", \"line_items\": [{\"description\": \"Training materials — onboarding programme\", \"quantity\": null, \"unit_price\": \"40427.30\", \"vat_rate\": null, \"amount\": \"40427.30\"}, {\"description\": \"Regulatory filing — Companies House\", \"quantity\": null, \"unit_price\": \"28088.10\", \"vat_rate\": null, \"amount\": \"28088.10\"}, {\"description\": \"Cloud infrastructure migration — Phase 2 of 7 (estimated)\", \"quantity\": 3, \"unit_price\": \"29070.20\", \"vat_rate\": null, \"amount\": \"87210.60\"}], \"subtotal\": \"155726.00\", \"vat_rate\": \"0.20\", \"vat_amount\": \"31145.20\", \"discount\": null, \"discount_amount\": null, \"total\": \"186871.20\", \"currency\": \"EUR\", \"payment_terms\": \"2/10 net 30\", \"bank_details\": \"Raiffeisenbank Austria | IBAN: AT47 8054 9940 5795 5152 | BIC: RZBAATWWXXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0050.pdf\"}]}",
+  "finish_reason": "STOP",
+  "input_tokens": 761,
+  "output_tokens": 494,
+  "thinking_tokens": 1632,
+  "request_seconds": 15.772308900000098,
+  "provider": "Gemini API",
+  "billing_basis": "User-selected Free Tier project; no billing enabled. Not independently verified by API.",
+  "standard_paid_rate_input_per_m": 0.75,
+  "standard_paid_rate_output_per_m": 3.75,
+  "pricing_checked": "2026-11-02",
+  "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing"
+}

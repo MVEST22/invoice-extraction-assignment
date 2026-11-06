@@ -1,0 +1,53 @@
+{
+  "signature": "9f7804d424b0801a1914845d03b8e911e827126f90599603b1052c037c1a7458",
+  "model": "gemini-3.6-flash",
+  "returned_model_version": "gemini-3.6-flash",
+  "source_files": [
+    "INV-2026-0019.pdf"
+  ],
+  "network_attempts": 1,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0019\", \"vendor\": \"Gekko & Associates Capital Advisory\", \"vendor_country\": \"GB\", \"vendor_address\": {\"street\": \"7 Merrowdale Lane\", \"postal_code\": \"EC2V 5AQ\", \"city\": \"London\"}, \"recipient\": \"Alpenvista Kredit AG\", \"recipient_country\": \"CH\", \"recipient_address\": {\"street\": \"Blumhofstrasse 5a\", \"postal_code\": \"8001\", \"city\": \"Zürich\"}, \"date\": \"2026-03-31\", \"due_date\": \"2026-04-30\", \"line_items\": [{\"description\": \"SEO audit (Q1 2026)\", \"quantity\": 10.0, \"unit_price\": \"1411.30\", \"vat_rate\": null, \"amount\": \"14113.00\"}, {\"description\": \"Consulting hours — Associate\", \"quantity\": 1.0, \"unit_price\": \"16278.90\", \"vat_rate\": null, \"amount\": \"16278.90\"}, {\"description\": \"Documentation cleanup (Sisyphean endeavour)\", \"quantity\": 50.0, \"unit_price\": \"265.70\", \"vat_rate\": null, \"amount\": \"13285.00\"}, {\"description\": \"Translation services (EN ↔ DE, 12k words)\", \"quantity\": 2.0, \"unit_price\": \"33932.70\", \"vat_rate\": null, \"amount\": \"67865.40\"}], \"subtotal\": \"111542.30\", \"vat_rate\": null, \"vat_amount\": \"22308.46\", \"discount\": {\"type\": \"amount\", \"value\": \"7807.96\", \"applied_to\": \"subtotal\", \"description\": \"agreed rebate\", \"conditional\": false}, \"discount_amount\": \"7807.96\", \"total\": \"126042.80\", \"currency\": \"EUR\", \"payment_terms\": \"Net 30 days\", \"bank_details\": \"HSBC UK | IBAN: GB90 4630 1359 9738 4504 17 | BIC: HBUKGB4BXXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0019.pdf\"}]}",
+              "thoughtSignature": "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"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 836,
+      "candidatesTokenCount": 599,
+      "totalTokenCount": 2940,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 836
+        }
+      ],
+      "thoughtsTokenCount": 1505,
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.6-flash",
+    "responseId": "vBrqao6cMK7r1sgPuJfTsAM"
+  },
+  "raw_response": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0019\", \"vendor\": \"Gekko & Associates Capital Advisory\", \"vendor_country\": \"GB\", \"vendor_address\": {\"street\": \"7 Merrowdale Lane\", \"postal_code\": \"EC2V 5AQ\", \"city\": \"London\"}, \"recipient\": \"Alpenvista Kredit AG\", \"recipient_country\": \"CH\", \"recipient_address\": {\"street\": \"Blumhofstrasse 5a\", \"postal_code\": \"8001\", \"city\": \"Zürich\"}, \"date\": \"2026-03-31\", \"due_date\": \"2026-04-30\", \"line_items\": [{\"description\": \"SEO audit (Q1 2026)\", \"quantity\": 10.0, \"unit_price\": \"1411.30\", \"vat_rate\": null, \"amount\": \"14113.00\"}, {\"description\": \"Consulting hours — Associate\", \"quantity\": 1.0, \"unit_price\": \"16278.90\", \"vat_rate\": null, \"amount\": \"16278.90\"}, {\"description\": \"Documentation cleanup (Sisyphean endeavour)\", \"quantity\": 50.0, \"unit_price\": \"265.70\", \"vat_rate\": null, \"amount\": \"13285.00\"}, {\"description\": \"Translation services (EN ↔ DE, 12k words)\", \"quantity\": 2.0, \"unit_price\": \"33932.70\", \"vat_rate\": null, \"amount\": \"67865.40\"}], \"subtotal\": \"111542.30\", \"vat_rate\": null, \"vat_amount\": \"22308.46\", \"discount\": {\"type\": \"amount\", \"value\": \"7807.96\", \"applied_to\": \"subtotal\", \"description\": \"agreed rebate\", \"conditional\": false}, \"discount_amount\": \"7807.96\", \"total\": \"126042.80\", \"currency\": \"EUR\", \"payment_terms\": \"Net 30 days\", \"bank_details\": \"HSBC UK | IBAN: GB90 4630 1359 9738 4504 17 | BIC: HBUKGB4BXXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0019.pdf\"}]}",
+  "finish_reason": "STOP",
+  "input_tokens": 836,
+  "output_tokens": 599,
+  "thinking_tokens": 1505,
+  "request_seconds": 13.070569659,
+  "provider": "Gemini API",
+  "billing_basis": "User-selected Free Tier project; no billing enabled. Not independently verified by API.",
+  "standard_paid_rate_input_per_m": 0.75,
+  "standard_paid_rate_output_per_m": 3.75,
+  "pricing_checked": "2026-11-02",
+  "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing"
+}

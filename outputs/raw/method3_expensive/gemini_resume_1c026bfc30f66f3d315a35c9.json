@@ -1,0 +1,53 @@
+{
+  "signature": "1c026bfc30f66f3d315a35c937d60f4b80a535bc27231a3ada9be672d4ba7440",
+  "model": "gemini-3.6-flash",
+  "returned_model_version": "gemini-3.6-flash",
+  "source_files": [
+    "INV-2026-0011.pdf"
+  ],
+  "network_attempts": 1,
+  "response": {
+    "candidates": [
+      {
+        "content": {
+          "parts": [
+            {
+              "text": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0011\", \"vendor\": \"Vandelay Industries GmbH\", \"vendor_country\": \"AT\", \"vendor_address\": {\"street\": \"Silberknopfstraße 14\", \"postal_code\": \"8010\", \"city\": \"Graz\"}, \"recipient\": \"Instituto Meridiano Tecnológico S.L.\", \"recipient_country\": \"ES\", \"recipient_address\": {\"street\": \"Passeig del Carmel Amagat 91\", \"postal_code\": \"08008\", \"city\": \"Barcelona\"}, \"date\": \"2026-02-12\", \"due_date\": \"2026-04-13\", \"line_items\": [{\"description\": \"Server colocation fees — rack 14-B\", \"quantity\": null, \"unit_price\": null, \"vat_rate\": \"0.20\", \"amount\": \"5797.30\"}], \"subtotal\": \"5807.30\", \"vat_rate\": \"0.20\", \"vat_amount\": \"1159.46\", \"discount\": {\"type\": \"amount\", \"value\": \"289.87\", \"applied_to\": \"subtotal\", \"description\": \"rebate per agreement\", \"conditional\": false}, \"discount_amount\": \"289.87\", \"total\": \"6666.89\", \"currency\": \"EUR\", \"payment_terms\": \"Net 60 days\", \"bank_details\": \"Bank: Bank Austria | IBAN: AT40 5740 1644 5150 3816 | BIC: BKAUATWWXXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0011.pdf\"}]}",
+              "thoughtSignature": "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"
+            }
+          ],
+          "role": "model"
+        },
+        "finishReason": "STOP",
+        "index": 0
+      }
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 717,
+      "candidatesTokenCount": 422,
+      "totalTokenCount": 2565,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 717
+        }
+      ],
+      "thoughtsTokenCount": 1426,
+      "serviceTier": "standard"
+    },
+    "modelVersion": "gemini-3.6-flash",
+    "responseId": "JXDoaoPPHdT6ytMPi5_7sAM"
+  },
+  "raw_response": "{\"invoices\": [{\"invoice_id\": \"INV-2026-0011\", \"vendor\": \"Vandelay Industries GmbH\", \"vendor_country\": \"AT\", \"vendor_address\": {\"street\": \"Silberknopfstraße 14\", \"postal_code\": \"8010\", \"city\": \"Graz\"}, \"recipient\": \"Instituto Meridiano Tecnológico S.L.\", \"recipient_country\": \"ES\", \"recipient_address\": {\"street\": \"Passeig del Carmel Amagat 91\", \"postal_code\": \"08008\", \"city\": \"Barcelona\"}, \"date\": \"2026-02-12\", \"due_date\": \"2026-04-13\", \"line_items\": [{\"description\": \"Server colocation fees — rack 14-B\", \"quantity\": null, \"unit_price\": null, \"vat_rate\": \"0.20\", \"amount\": \"5797.30\"}], \"subtotal\": \"5807.30\", \"vat_rate\": \"0.20\", \"vat_amount\": \"1159.46\", \"discount\": {\"type\": \"amount\", \"value\": \"289.87\", \"applied_to\": \"subtotal\", \"description\": \"rebate per agreement\", \"conditional\": false}, \"discount_amount\": \"289.87\", \"total\": \"6666.89\", \"currency\": \"EUR\", \"payment_terms\": \"Net 60 days\", \"bank_details\": \"Bank: Bank Austria | IBAN: AT40 5740 1644 5150 3816 | BIC: BKAUATWWXXX\", \"is_credit_note\": false, \"source_file\": \"INV-2026-0011.pdf\"}]}",
+  "finish_reason": "STOP",
+  "input_tokens": 717,
+  "output_tokens": 422,
+  "thinking_tokens": 1426,
+  "request_seconds": 9.750158545999966,
+  "provider": "Gemini API",
+  "billing_basis": "User-selected Free Tier project; no billing enabled. Not independently verified by API.",
+  "standard_paid_rate_input_per_m": 0.75,
+  "standard_paid_rate_output_per_m": 3.75,
+  "pricing_checked": "2026-11-02",
+  "pricing_source": "https://ai.google.dev/gemini-api/docs/pricing"
+}

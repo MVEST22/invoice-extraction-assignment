@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "method": "method2_low_cost",
+    "model": "gemini-3.5-flash-lite",
+    "provider": "Gemini API",
+    "input_tokens": 24892,
+    "output_tokens": 32499,
+    "thinking_tokens": 0,
+    "generation_seconds": 171.9866969009995,
+    "actual_api_cost_usd_on_free_tier": 0,
+    "standard_uncached_equivalent_usd": 0.0887151,
+    "invoices": 50,
+    "requests": 10,
+    "parse_failures": 0,
+    "billing": "Zero only for user-selected eligible Free Tier project; no billing enabled. Billing status is not independently checked by this API."
+  },
+  {
+    "method": "method3_expensive",
+    "model": "gemini-3.6-flash",
+    "provider": "Gemini API",
+    "input_tokens": 31484,
+    "output_tokens": 28670,
+    "thinking_tokens": 67723,
+    "generation_seconds": 660.2410789039999,
+    "actual_api_cost_usd_on_free_tier": 0,
+    "standard_uncached_equivalent_usd": 0.38508675,
+    "invoices": 50,
+    "requests": 26,
+    "parse_failures": 0,
+    "billing": "Zero only for user-selected eligible Free Tier project; no billing enabled. Billing status is not independently checked by this API."
+  }
+]

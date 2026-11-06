@@ -42,5 +42,137 @@
         31
       ]
     ]
+  },
+  {
+    "method": "method2",
+    "invoices": 50,
+    "exact_invoices": 0,
+    "field_correct": 1917,
+    "field_total": 2346,
+    "field_accuracy": 0.8171355498721228,
+    "printed_field_accuracy": 0.8239556692242114,
+    "prediction_rows": 50,
+    "top_error_fields": [
+      [
+        "line_items[].vat_rate",
+        80
+      ],
+      [
+        "line_items[].unit_price",
+        63
+      ],
+      [
+        "line_items[].amount",
+        55
+      ],
+      [
+        "discount_amount",
+        48
+      ],
+      [
+        "discount.value",
+        24
+      ],
+      [
+        "vat_rate",
+        19
+      ],
+      [
+        "discount.description",
+        18
+      ],
+      [
+        "subtotal",
+        18
+      ]
+    ]
+  },
+  {
+    "method": "method3",
+    "invoices": 50,
+    "exact_invoices": 1,
+    "field_correct": 1907,
+    "field_total": 2346,
+    "field_accuracy": 0.8128729752770674,
+    "printed_field_accuracy": 0.8205456095481671,
+    "prediction_rows": 50,
+    "top_error_fields": [
+      [
+        "line_items[].vat_rate",
+        128
+      ],
+      [
+        "line_items[].unit_price",
+        62
+      ],
+      [
+        "line_items[].amount",
+        46
+      ],
+      [
+        "discount_amount",
+        33
+      ],
+      [
+        "line_items[].quantity",
+        27
+      ],
+      [
+        "discount.description",
+        25
+      ],
+      [
+        "discount.value",
+        20
+      ],
+      [
+        "subtotal",
+        17
+      ]
+    ]
+  },
+  {
+    "method": "method4",
+    "invoices": 50,
+    "exact_invoices": 6,
+    "field_correct": 2016,
+    "field_total": 2346,
+    "field_accuracy": 0.8593350383631714,
+    "printed_field_accuracy": 0.8670076726342711,
+    "prediction_rows": 50,
+    "top_error_fields": [
+      [
+        "line_items[].vat_rate",
+        74
+      ],
+      [
+        "line_items[].unit_price",
+        51
+      ],
+      [
+        "line_items[].amount",
+        51
+      ],
+      [
+        "discount_amount",
+        29
+      ],
+      [
+        "subtotal",
+        20
+      ],
+      [
+        "vat_rate",
+        15
+      ],
+      [
+        "total",
+        11
+      ],
+      [
+        "vat_amount",
+        11
+      ]
+    ]
   }
 ]
